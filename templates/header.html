@@ -1,6 +1,25 @@
+{% load static %}
+{% block optional_header %}<link rel="stylesheet" href="{% static 'css/header.css' %}">{% endblock %}
 {% block header %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'homepage' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'homepage' %}">
+				<div class="row align-items-center">
+					<div class="col">
+						<img src="{% static 'img/logo.png' %}" width="125" height="70" class="d-inline align-top" alt="Logo">
+					</div>
+					<div class="col d-none d-sm-block">
+						<div class="row text-warning">
+							Cub Scout Pack 144
+						</div>
+						<div class="row text-light">
+							<small>Seattle, Washington</small>
+						</div>
+						<div class="row text-light">
+							<small><em>Since 1929</em></small>
+						</div>
+					</div>
+				</div>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
