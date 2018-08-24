@@ -2,7 +2,7 @@
 {% block optional_header %}
     <link rel="stylesheet" href="{% static 'css/header.css' %}">{% endblock %}
 {% block header %}
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark" style="background-color: rgba(8,8,8,0.85);">
         <a class="navbar-brand" href="{% url 'homepage' %}">
             <div class="row align-items-center">
                 <div class="col">
@@ -38,9 +38,10 @@
             </ul>
 
     </nav>
-    <div>
+    <div id="navbar_background"></div>
+    <div id="banner">
         <img src="{% static 'img/banner.jpg' %}" alt="banner" class="d-none d-md-block" width="100%">
-        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: rgba(8,8,8,0.8);">
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: rgba(8,8,8,0.85);">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

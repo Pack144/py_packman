@@ -21,4 +21,5 @@ import pages.views
 urlpatterns = [
     path('', pages.views.homepage, name='homepage'),
     path('admin/', admin.site.urls),
+    path('<slug:permalink>/', pages.views.page, name='page'),
 ]
