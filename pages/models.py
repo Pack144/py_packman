@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 
 
 class Category(models.Model):
@@ -13,7 +14,7 @@ class Category(models.Model):
 
 class Page(models.Model):
     title = models.CharField(max_length=255)
-    body = models.TextField()
+    body = HTMLField()
     post_date = models.DateField()
     attachment = models.FileField(upload_to='pages/', null=True, blank=True)
     category = models.ManyToManyField(Category)

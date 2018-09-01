@@ -14,12 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 import pages.views
 
 urlpatterns = [
     path('', pages.views.homepage, name='homepage'),
     path('admin/', admin.site.urls),
+    path('tinymce/', include('tinymce.urls')),
     path('<slug:permalink>/', pages.views.page, name='page'),
 ]
