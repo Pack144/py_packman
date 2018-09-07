@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">{% endblock %}
 {% block header %}
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark" style="background-color: rgba(8,8,8,0.85);">
-        <a class="navbar-brand" href="{% url 'homepage' %}">
+        <a class="navbar-brand" href="{% url 'home_page' %}">
             <div class="row align-items-center">
                 <div class="col">
                     <img src="{% static 'img/logo.png' %}" width="125" height="70" class="d-inline align-top"
@@ -48,10 +48,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'page' permalink='our-history' %}">Our History</a>
+                        <a class="nav-link" href="{% url 'history_page' %}">Our History</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'page' permalink='about-us' %}">About Us</a>
+                        <a class="nav-link" href="{% url 'about_page' %}">About Us</a>
                     </li>
                 </ul>
             </div>

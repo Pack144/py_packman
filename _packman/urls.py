@@ -19,7 +19,10 @@ from django.urls import include, path
 import pages.views
 
 urlpatterns = [
-    path('', pages.views.homepage, name='homepage'),
+    path('', pages.views.home_page, name='home_page'),
+    path('about/', pages.views.about_page, name='about_page'),
+    path('history/', pages.views.history_page, name='history_page'),
+
     path('admin/', admin.site.urls),
-    path('<slug:permalink>/', pages.views.page, name='page'),
+    path('<slug:permalink>/', pages.views.dynamic_page, name='dynamic_page'),
 ]
