@@ -40,8 +40,7 @@
     </nav>
     <div id="navbar_background"></div>
     <div id="banner">
-        <img src="{% static 'img/banner.jpg' %}" alt="banner" class="d-none d-md-block" width="100%">
-        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: rgba(8,8,8,0.85);">
+        <nav class="navbar navbar-expand-md navbar-dark" id="banner-nav" style="background-color: rgba(8,8,8,0.85);">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -57,5 +56,6 @@
                 </ul>
             </div>
         </nav>
+        <img src="{% static 'img/banner.jpg' %}" alt="banner" class="d-none d-md-block" width="100%">
     </div>
 {% endblock %}
