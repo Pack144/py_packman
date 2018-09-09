@@ -25,21 +25,24 @@
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
+                        <span class="navbar-text">Welcome {{ user.name }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-sm btn-outline-danger" href="{% url 'logout' %}">Logout</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Join Us</a>
+                        <a class="nav-link" href="{% url 'join-us' %}">Join Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
                 {% endif %}
             </ul>
 
     </nav>
     <div id="navbar_background"></div>
-    <div id="banner">
+    <div id="banner" style="min-height: 56px;">
         <nav class="navbar navbar-expand-md navbar-dark" id="banner-nav" style="background-color: rgba(8,8,8,0.85);">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

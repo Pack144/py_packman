@@ -16,13 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-import pages.views
-
 urlpatterns = [
-    path('', pages.views.home_page, name='home_page'),
-    path('about/', pages.views.about_page, name='about_page'),
-    path('history/', pages.views.history_page, name='history_page'),
-
     path('admin/', admin.site.urls),
-    path('<slug:permalink>/', pages.views.dynamic_page, name='dynamic_page'),
+    path('members/', include('members.urls')),
+    path('members/', include('django.contrib.auth.urls')),
+    path('', include('pages.urls')),
 ]
