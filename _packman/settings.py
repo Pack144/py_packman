@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'members',
+    'membership',
     'pages',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -86,7 +86,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'members.Member'
+AUTH_USER_MODEL = 'membership.Member'
 LOGIN_REDIRECT_URL = 'home_page'
 LOGOUT_REDIRECT_URL = 'home_page'
 AUTH_PASSWORD_VALIDATORS = [

@@ -9,7 +9,7 @@ class MemberAdmin(UserAdmin):
     add_form = MemberCreationForm
     form = MemberChangeForm
     model = Member
-    list_display = ['email', 'username']
+    list_display = ['username', 'first_name', 'nickname', 'last_name', 'email']
 
 
-admin.site.register(Member, MemberAdmin)
+admin.site.register(Member, UserAdmin)
