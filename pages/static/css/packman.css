@@ -16,7 +16,7 @@ footer {
 }
 
 #pack-identification {
-    background-color: rgba(8,8,8,0.85);
+    background-color: rgba(8, 8, 8, 0.85);
 }
 
 #banner {
@@ -26,11 +26,16 @@ footer {
 }
 
 #banner-nav {
-    position: absolute;
-    background-color: rgba(8,8,8,0.66);
+    background-color: rgba(8, 8, 8, 0.66);
     width: 100%;
-    left: 0px;
-    bottom: 0px;
+}
+
+@media (min-width: 768px) {
+    #banner-nav {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+    }
 }
 
 body {

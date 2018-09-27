@@ -1,6 +1,6 @@
 {% load static %}
 {% block header %}
-    <div id="pack-identification" class="navbar fixed-top navbar-expand-sm navbar-dark">
+    <div id="pack-identification" class="navbar fixed-top navbar-dark">
         <a class="navbar-brand" href="{% url 'home_page' %}">
             <div class="row align-items-center">
                 <div class="col">
@@ -20,31 +20,37 @@
                 </div>
             </div>
         </a>
-            <ul class="navbar-nav ml-auto text-small">
-                {% if user.is_authenticated %}
-                    <li class="nav-item mr-1">
-                        <span class="navbar-text">Welcome {{ user }}</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-sm btn-outline-danger" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'join-us' %}">Join Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
-                {% endif %}
-            </ul>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-                    aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <ul class="navbar-nav ml-auto small">
+            {% if user.is_authenticated %}
+                <div class="col">
+                    <div class="row">
+                        <li class="nav-item">
+                            <span class="nav-link text-light">Welcome {{ user }}</span>
+                        </li>
+                    </div>
+                    <div class="row">
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    </div>
+                </div>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'join-us' %}">Join Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
     <div id="banner">
         <nav class="navbar navbar-expand-md navbar-dark" id="banner-nav">
-            <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'history_page' %}">Our History</a>
