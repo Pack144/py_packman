@@ -73,6 +73,30 @@ class Role(models.Model):
         return self.get_id_display()
 
 
+class Rank(models.Model):
+    BOBCAT = 1
+    TIGER = 2
+    WOLF = 3
+    BEAR = 4
+    JR_WEBE = 5
+    SR_WEBE = 6
+    ARROW = 7
+    RANK_CHOICES = (
+        (BOBCAT, "Bobcat"),
+        (TIGER, "Tiger"),
+        (WOLF, "Wolf"),
+        (BEAR, "Bear"),
+        (JR_WEBE, "Jr. Webelos"),
+        (SR_WEBE, "Sr. Webelos"),
+        (ARROW, "Arrow of Light"),
+    )
+
+    id = models.PositiveSmallIntegerField(choices=RANK_CHOICES, primary_key=True)
+
+    def __str__(self):
+        return self.get_id_display()
+
+
 class Family(models.Model):
     family_name = models.CharField(max_length=150, unique=True)
 

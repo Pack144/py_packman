@@ -18,6 +18,6 @@ class FamilyAdmin(admin.ModelAdmin):
     search_fields = ['family_name', ]
 
 
-admin.site.register(Member, UserAdmin)
+admin.site.register(Member, MemberAdmin)
 admin.site.unregister(Group)
 admin.site.register(Family, FamilyAdmin)
