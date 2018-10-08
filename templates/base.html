@@ -1,13 +1,11 @@
+{% load bootstrap4 %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet"
-          href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet"
-          href="{% static "css/packman.css" %}">
+    {% bootstrap_css %}
     <title>Pack 144: {% block title %}Hello World!{% endblock %}</title>
     {% block optional_head %}{% endblock %}
 </head>
@@ -25,9 +23,7 @@
         </div>
     </footer>
 
-    <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% bootstrap_javascript jquery='full' %}
     {% block optional_js %}{% endblock %}
 </body>
 </html>
