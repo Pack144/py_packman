@@ -53,6 +53,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'history_page' %}">Our History</a>
                     </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about_page' %}">About Us</a>
                     </li>
