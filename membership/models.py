@@ -45,13 +45,13 @@ class Family(models.Model):
 
 
 class Member(models.Model):
-    first_name = models.CharField(max_length=30)
-    nickname = models.CharField(max_length=30, blank=True, null=True)
-    middle_name = models.CharField(max_length=30, blank=True, null=True)
-    last_name = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=32)
+    nickname = models.CharField(max_length=32, blank=True, null=True)
+    middle_name = models.CharField(max_length=32, blank=True, null=True)
+    last_name = models.CharField(max_length=64)
     email = models.EmailField(blank=True, null=True)
-
     date_of_birth = models.DateField(blank=True, null=True)
+    children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
 
     CUB = 'S'
     GUARDIAN = 'G'
@@ -65,18 +65,15 @@ class Member(models.Model):
     )
     role = models.CharField(max_length=1, choices=ROLE_CHOICES, default=WAITLIST)
 
-    family = models.ForeignKey(Family, on_delete=models.CASCADE, null=True, blank=True)
-
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
-
     class Meta:
         verbose_name = 'member'
         verbose_name_plural = 'members'
+        ordering = ['last_name', 'first_name']
 
     def __str__(self):
         return self.get_short_name()
 
-    def age(self):
+    def get_age(self):
         if not self.date_of_birth:
             return None
         today = timezone.now()
@@ -84,7 +81,10 @@ class Member(models.Model):
                     (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
 
     def get_full_name(self):
-        return "{} {}".format(self.get_short_name, self.last_name).strip()
+        return "{} {}".format(self.get_short_name(), self.last_name).strip()
+
+    def get_parents(self):
+        return self.parents.all()
 
     def get_short_name(self):
         if self.nickname:
