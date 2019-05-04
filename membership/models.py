@@ -1,54 +1,11 @@
-from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class MembershipManager(UserManager):
-    def create_user(self, email=None, password=None, **kwargs):
-        """
-        Creates and saves a User with the given email and password.
-        """
-        user = self.model(
-            email=self.normalize_email(email),
-        )
+class WebsiteLogin(AbstractUser):
 
-        for kwarg in kwargs:
-            user.kwarg = kwarg
-
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_staffuser(self, email, password):
-        """
-        Creates and saves a staff user with the given email and password.
-        """
-        if not email:
-            raise ValueError('Staff must have an email address')
-
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.staff = True
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, email, password):
-        """
-        Creates and saves a superuser with the given email and password.
-        """
-        if not email:
-            raise ValueError('Admins must have an email address')
-
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.staff = True
-        user.admin = True
-        user.save(using=self._db)
-        return user
+    def __str__(self):
+        return self.email
 
 
 class Role(models.Model):
@@ -108,7 +65,7 @@ class Family(models.Model):
         return self.family_name
 
 
-class Member(AbstractUser):
+class Member(models.Model):
     first_name = models.CharField(max_length=30)
     nickname = models.CharField(max_length=30, blank=True, null=True)
     middle_name = models.CharField(max_length=30, blank=True, null=True)
@@ -118,8 +75,6 @@ class Member(AbstractUser):
     family = models.ForeignKey(Family, on_delete=models.CASCADE, null=True, blank=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
-
-    # objects = MembershipManager()
 
     class Meta:
         verbose_name = 'member'
