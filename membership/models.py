@@ -49,6 +49,7 @@ class Member(models.Model):
     middle_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=150)
     email = models.EmailField(blank=True, null=True)
+
     CUB = 'S'
     GUARDIAN = 'G'
     CONTRIBUTOR = 'C'
@@ -59,7 +60,8 @@ class Member(models.Model):
         (CONTRIBUTOR, 'Contributor'),
         (WAITLIST, 'Waitlist'),
     )
-    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default='Waitlist')
+    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default=WAITLIST)
+
     family = models.ForeignKey(Family, on_delete=models.CASCADE, null=True, blank=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
@@ -72,10 +74,7 @@ class Member(models.Model):
         return self.get_short_name()
 
     def get_full_name(self):
-        if self.nickname:
-            return "{} {}".format(self.nickname, self.last_name).strip()
-        else:
-            return "{} {}".format(self.first_name, self.last_name).strip()
+        return "{} {}".format(self.get_short_name, self.last_name).strip()
 
     def get_short_name(self):
         if self.nickname:
