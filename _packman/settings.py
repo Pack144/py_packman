@@ -29,17 +29,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'membership',
-    'pages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party packages
     'ckeditor',
     'ckeditor_uploader',
     'bootstrap4',
+
+    # Local apps
+    'membership',
+    'pages',
 ]
 
 MIDDLEWARE = [
