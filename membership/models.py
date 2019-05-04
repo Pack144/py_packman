@@ -8,28 +8,6 @@ class WebsiteLogin(AbstractUser):
         return self.email
 
 
-class Role(models.Model):
-    """
-    The Role entries are managed by the system,
-    automatically created via a Django data migration.
-    """
-    CUB = 1
-    GUARDIAN = 2
-    CONTRIBUTOR = 3
-    WAITLIST = 4
-    ROLE_CHOICES = (
-        (CUB, 'cub'),
-        (GUARDIAN, 'guardian'),
-        (CONTRIBUTOR, 'contributor'),
-        (WAITLIST, 'waitlist'),
-    )
-
-    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
-
-    def __str__(self):
-        return self.get_id_display()
-
-
 class Rank(models.Model):
     BOBCAT = 1
     TIGER = 2
@@ -71,7 +49,17 @@ class Member(models.Model):
     middle_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=150)
     email = models.EmailField(blank=True, null=True)
-    user_type = models.ManyToManyField(Role, default='waitlist')
+    CUB = 'S'
+    GUARDIAN = 'G'
+    CONTRIBUTOR = 'C'
+    WAITLIST = 'W'
+    ROLE_CHOICES = (
+        (CUB, 'Cub'),
+        (GUARDIAN, 'Guardian'),
+        (CONTRIBUTOR, 'Contributor'),
+        (WAITLIST, 'Waitlist'),
+    )
+    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default='Waitlist')
     family = models.ForeignKey(Family, on_delete=models.CASCADE, null=True, blank=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']

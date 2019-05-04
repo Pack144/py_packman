@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import WebsiteLoginCreationForm, WebsiteLoginChangeForm
@@ -16,6 +15,8 @@ class WebsiteLoginAdmin(UserAdmin):
 class MemberAdmin(admin.ModelAdmin):
     model = Member
     list_display = ['first_name', 'nickname', 'last_name', 'email']
+    exclude = []
+    inlines = []
 
 
 class FamilyAdmin(admin.ModelAdmin):
