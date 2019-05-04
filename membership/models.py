@@ -58,7 +58,7 @@ class Member(models.Model):
         (CUB, 'Cub'),
         (GUARDIAN, 'Guardian'),
         (CONTRIBUTOR, 'Contributor'),
-        (WAITLIST, 'Waitlist'),
+        (WAITLIST, 'Wait list'),
     )
     role = models.CharField(max_length=1, choices=ROLE_CHOICES, default=WAITLIST)
 
