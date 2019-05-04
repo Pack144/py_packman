@@ -73,6 +73,41 @@ class Role(models.Model):
         return self.get_id_display()
 
 
+class Rank(models.Model):
+    BOBCAT = 1
+    TIGER = 2
+    WOLF = 3
+    BEAR = 4
+    JR_WEBE = 5
+    SR_WEBE = 6
+    ARROW = 7
+    RANK_CHOICES = (
+        (BOBCAT, "Bobcat"),
+        (TIGER, "Tiger"),
+        (WOLF, "Wolf"),
+        (BEAR, "Bear"),
+        (JR_WEBE, "Jr. Webelos"),
+        (SR_WEBE, "Sr. Webelos"),
+        (ARROW, "Arrow of Light"),
+    )
+
+    id = models.PositiveSmallIntegerField(choices=RANK_CHOICES, primary_key=True)
+
+    def __str__(self):
+        return self.get_id_display()
+
+
+class Family(models.Model):
+    family_name = models.CharField(max_length=150, unique=True)
+
+    class Meta:
+        verbose_name = 'Family'
+        verbose_name_plural = 'Families'
+
+    def __str__(self):
+        return self.family_name
+
+
 class Member(AbstractUser):
     first_name = models.CharField(max_length=30)
     nickname = models.CharField(max_length=30, blank=True, null=True)
@@ -80,8 +115,10 @@ class Member(AbstractUser):
     last_name = models.CharField(max_length=150)
     email = models.EmailField(blank=True, null=True)
     user_type = models.ManyToManyField(Role, default='waitlist')
+    family = models.ForeignKey(Family, on_delete=models.CASCADE, null=True, blank=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
+
     # objects = MembershipManager()
 
     class Meta:

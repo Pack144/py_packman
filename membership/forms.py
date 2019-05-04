@@ -6,7 +6,7 @@ class MemberCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = Member
-        fields = UserCreationForm.Meta.fields + ('nickname',)
+        fields = UserCreationForm.Meta.fields + ('nickname', 'family', 'user_type')
 
 
 class MemberChangeForm(UserChangeForm):

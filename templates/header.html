@@ -1,12 +1,14 @@
 {% load static %}
-{% block optional_header %}
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">{% endblock %}
 {% block header %}
-    <nav class="navbar fixed-top navbar-expand-sm navbar-dark" style="background-color: rgba(8,8,8,0.85);">
+    <div id="pack-identification" class="navbar fixed-top navbar-dark">
         <a class="navbar-brand" href="{% url 'home_page' %}">
             <div class="row align-items-center">
-                <div class="col">
+                <div class="col d-none d-sm-block">
                     <img src="{% static 'img/logo.png' %}" width="125" height="70" class="d-inline align-top"
+                         alt="Logo">
+                </div>
+                <div class="col d-block d-sm-none">
+                    <img src="{% static 'img/logo.png' %}" width="64" height="36" class="d-inline align-top"
                          alt="Logo">
                 </div>
                 <div class="col d-none d-sm-block">
@@ -22,37 +24,40 @@
                 </div>
             </div>
         </a>
-            <ul class="navbar-nav ml-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <span class="navbar-text">Welcome {{ user }}</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-sm btn-outline-danger" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'join-us' %}">Join Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
-                {% endif %}
-            </ul>
-
-    </nav>
-    <div id="navbar_background"></div>
-    <div id="banner" style="min-height: 56px;">
-        <nav class="navbar navbar-expand-md navbar-dark" id="banner-nav" style="background-color: rgba(8,8,8,0.85);">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <ul class="navbar-nav ml-auto small">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="nav-link text-light">Welcome {{ user }}</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-warning" href="{% url 'logout' %}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'join-us' %}">Join Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+    <div id="banner">
+        <nav class="navbar navbar-expand-md navbar-dark" id="banner-nav">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'history_page' %}">Our History</a>
                     </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about_page' %}">About Us</a>
                     </li>
