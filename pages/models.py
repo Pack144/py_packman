@@ -3,7 +3,7 @@ from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):
-    name = models.TextField(max_length=64)
+    name = models.CharField(max_length=64)
 
     def __str__(self):
         return self.name
@@ -17,7 +17,7 @@ class Page(models.Model):
     body = RichTextField()
     post_date = models.DateField()
     attachment = models.FileField(upload_to='pages/', null=True, blank=True)
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, related_name='pages')
     permalink = models.SlugField(unique=True)
 
     def __str__(self):

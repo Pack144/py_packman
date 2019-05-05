@@ -29,17 +29,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'membership',
-    'pages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party packages
     'ckeditor',
     'ckeditor_uploader',
     'bootstrap4',
+
+    # Local apps
+    'membership',
+    'pages',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +91,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'membership.Member'
+AUTH_USER_MODEL = 'membership.WebsiteLogin'
 LOGIN_REDIRECT_URL = 'home_page'
 LOGOUT_REDIRECT_URL = 'home_page'
 AUTH_PASSWORD_VALIDATORS = [

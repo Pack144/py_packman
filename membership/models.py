@@ -1,76 +1,12 @@
-from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 
 
-class MembershipManager(UserManager):
-    def create_user(self, email=None, password=None, **kwargs):
-        """
-        Creates and saves a User with the given email and password.
-        """
-        user = self.model(
-            email=self.normalize_email(email),
-        )
-
-        for kwarg in kwargs:
-            user.kwarg = kwarg
-
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_staffuser(self, email, password):
-        """
-        Creates and saves a staff user with the given email and password.
-        """
-        if not email:
-            raise ValueError('Staff must have an email address')
-
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.staff = True
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, email, password):
-        """
-        Creates and saves a superuser with the given email and password.
-        """
-        if not email:
-            raise ValueError('Admins must have an email address')
-
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.staff = True
-        user.admin = True
-        user.save(using=self._db)
-        return user
-
-
-class Role(models.Model):
-    """
-    The Role entries are managed by the system,
-    automatically created via a Django data migration.
-    """
-    CUB = 1
-    GUARDIAN = 2
-    CONTRIBUTOR = 3
-    WAITLIST = 4
-    ROLE_CHOICES = (
-        (CUB, 'cub'),
-        (GUARDIAN, 'guardian'),
-        (CONTRIBUTOR, 'contributor'),
-        (WAITLIST, 'waitlist'),
-    )
-
-    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+class WebsiteLogin(AbstractUser):
 
     def __str__(self):
-        return self.get_id_display()
+        return self.email
 
 
 class Rank(models.Model):
@@ -108,31 +44,47 @@ class Family(models.Model):
         return self.family_name
 
 
-class Member(AbstractUser):
-    first_name = models.CharField(max_length=30)
-    nickname = models.CharField(max_length=30, blank=True, null=True)
-    middle_name = models.CharField(max_length=30, blank=True, null=True)
-    last_name = models.CharField(max_length=150)
+class Member(models.Model):
+    first_name = models.CharField(max_length=32)
+    nickname = models.CharField(max_length=32, blank=True, null=True)
+    middle_name = models.CharField(max_length=32, blank=True, null=True)
+    last_name = models.CharField(max_length=64)
     email = models.EmailField(blank=True, null=True)
-    user_type = models.ManyToManyField(Role, default='waitlist')
-    family = models.ForeignKey(Family, on_delete=models.CASCADE, null=True, blank=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
 
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
-
-    # objects = MembershipManager()
+    CUB = 'S'
+    GUARDIAN = 'G'
+    CONTRIBUTOR = 'C'
+    WAITLIST = 'W'
+    ROLE_CHOICES = (
+        (CUB, 'Cub'),
+        (GUARDIAN, 'Guardian'),
+        (CONTRIBUTOR, 'Contributor'),
+        (WAITLIST, 'Wait list'),
+    )
+    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default=WAITLIST)
 
     class Meta:
         verbose_name = 'member'
         verbose_name_plural = 'members'
+        ordering = ['last_name', 'first_name']
 
     def __str__(self):
         return self.get_short_name()
 
+    def get_age(self):
+        if not self.date_of_birth:
+            return None
+        today = timezone.now()
+        return today.year - self.date_of_birth.year - (
+                    (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+
     def get_full_name(self):
-        if self.nickname:
-            return "{} {}".format(self.nickname, self.last_name).strip()
-        else:
-            return "{} {}".format(self.first_name, self.last_name).strip()
+        return "{} {}".format(self.get_short_name(), self.last_name).strip()
+
+    def get_parents(self):
+        return self.parents.all()
 
     def get_short_name(self):
         if self.nickname:

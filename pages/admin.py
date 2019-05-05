@@ -3,11 +3,18 @@ from .models import Category
 from .models import Page
 
 
+class CategoryInline(admin.TabularInline):
+    model = Page.category.through
+    extra = 0
+
+
 class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {"permalink": ("title", )}
     list_display = ('title', 'post_date', )
     list_filter = ('category',)
     search_fields = ['title', 'category', ]
+    inlines = [CategoryInline]
+    exclude = ['category']
 
 
 admin.site.register(Category)
