@@ -33,25 +33,15 @@ class Rank(models.Model):
         return self.get_id_display()
 
 
-class Family(models.Model):
-    family_name = models.CharField(max_length=150, unique=True)
-
-    class Meta:
-        verbose_name = 'Family'
-        verbose_name_plural = 'Families'
-
-    def __str__(self):
-        return self.family_name
-
-
 class Member(models.Model):
     first_name = models.CharField(max_length=32)
     nickname = models.CharField(max_length=32, blank=True, null=True)
     middle_name = models.CharField(max_length=32, blank=True, null=True)
     last_name = models.CharField(max_length=64)
-    email = models.EmailField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
+
+    login = models.OneToOneField(WebsiteLogin, on_delete=models.CASCADE, blank=True, null=True)
 
     CUB = 'S'
     GUARDIAN = 'G'

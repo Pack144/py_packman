@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import WebsiteLoginCreationForm, WebsiteLoginChangeForm
-from .models import Member, Family, WebsiteLogin
+from .models import Member, WebsiteLogin
 
 
 class WebsiteLoginAdmin(UserAdmin):
@@ -14,16 +14,10 @@ class WebsiteLoginAdmin(UserAdmin):
 
 class MemberAdmin(admin.ModelAdmin):
     model = Member
-    list_display = ['first_name', 'nickname', 'last_name', 'email']
+    list_display = ['first_name', 'nickname', 'last_name', 'get_age']
     exclude = []
     inlines = []
 
 
-class FamilyAdmin(admin.ModelAdmin):
-    list_display = ['family_name']
-    search_fields = ['family_name']
-
-
 admin.site.register(WebsiteLogin, WebsiteLoginAdmin)
 admin.site.register(Member, MemberAdmin)
-admin.site.register(Family, FamilyAdmin)
