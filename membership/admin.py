@@ -13,8 +13,12 @@ class WebsiteLoginAdmin(UserAdmin):
 
 
 class MemberAdmin(admin.ModelAdmin):
-    model = Member
-    list_display = ['first_name', 'nickname', 'last_name', 'get_age']
+    fieldsets = [
+        ('Personal Information', {'fields': [('first_name', 'middle_name', 'last_name', 'nickname'), 'date_of_birth']}),
+        ('Login', {'fields': ['login']}),
+        ('Family', {'fields': ['children']})
+    ]
+    list_display = ['full_name', 'age']
     exclude = []
     inlines = []
 
