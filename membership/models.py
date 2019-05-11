@@ -3,12 +3,6 @@ from django.db import models
 from django.utils import timezone
 
 
-class WebsiteLogin(AbstractUser):
-
-    def __str__(self):
-        return self.email
-
-
 class Rank(models.Model):
     BOBCAT = 1
     TIGER = 2
@@ -40,8 +34,6 @@ class Member(models.Model):
     last_name = models.CharField(max_length=64)
     date_of_birth = models.DateField(blank=True, null=True)
     children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
-
-    login = models.OneToOneField(WebsiteLogin, on_delete=models.SET_NULL, blank=True, null=True)
 
     CUB = 'S'
     GUARDIAN = 'G'
@@ -81,3 +73,11 @@ class Member(models.Model):
             return self.nickname.strip()
         else:
             return self.first_name.strip()
+
+
+class WebsiteLogin(AbstractUser):
+
+    member = models.OneToOneField(Member, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return self.email
