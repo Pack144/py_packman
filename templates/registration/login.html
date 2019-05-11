@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Login{% endblock %}
+
+{% block title %}Login{% endblock title %}
+
 {% block optional_head %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}"/>{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+{% endblock optional_head %}
+
 {% block main %}
     <div class="text-center">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -25,5 +29,6 @@
             </div>
             <button type="submit" class="btn btn-success btn-lg btn-block">Login</button>
         </form>
+        <p>Forgot your password? <a href="{% url 'password_reset' %}">You can reset it.</a></p>
     </div>
-{% endblock %}
+{% endblock main %}
