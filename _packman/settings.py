@@ -133,6 +133,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT, 'uploads')
 
+# Email settings for development environment
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Allow for a private local_settings.py file to override these settings
 try:
     from .local_settings import *
