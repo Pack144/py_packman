@@ -7,13 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% bootstrap_css %}
-    <link rel="stylesheet" href="{% static "css/packman.css" %}">
+    <link rel="stylesheet" href="{% static 'css/packman.css' %}">
     {% block optional_head %}{% endblock %}
     <title>Pack 144: {% block title %}Hello World!{% endblock %}</title>
 </head>
 
 <!-- Here lies the header section -->
-<header>{% include "header.html" %}</header>
+<header>{% include 'header.html' %}</header>
 
 <!-- Here lies the main section -->
 <main role="main">
@@ -25,7 +25,7 @@
 <!-- Here lies the footer section -->
 <footer>
     <div class="container">
-        {% include "footer.html" %}
+        {% include 'footer.html' %}
     </div>
 </footer>
 
