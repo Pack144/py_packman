@@ -1,31 +1,35 @@
 {% load static %}
 {% load bootstrap4 %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% bootstrap_css %}
-    <link rel="stylesheet"
-          href="{% static "css/packman.css" %}">
-    <title>Pack 144: {% block title %}Hello World!{% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/packman.css" %}">
     {% block optional_head %}{% endblock %}
+    <title>Pack 144: {% block title %}Hello World!{% endblock %}</title>
 </head>
-    <header>{% include "header.html" %}</header>
 
-    <main role="main">
-        <div class="container">
-            {% block main %}<h1>Hello World!</h1>{% endblock %}
-        </div>
-    </main>
+<!-- Here lies the header section -->
+<header>{% include "header.html" %}</header>
 
-    <footer>
-        <div class="container">
-            {% include "footer.html" %}
-        </div>
-    </footer>
+<!-- Here lies the main section -->
+<main role="main">
+    <div class="container">
+        {% block main %}<h1>Hello World!</h1>{% endblock %}
+    </div>
+</main>
 
-    {% bootstrap_javascript jquery='full' %}
-    {% block optional_js %}{% endblock %}
+<!-- Here lies the footer section -->
+<footer>
+    <div class="container">
+        {% include "footer.html" %}
+    </div>
+</footer>
+
+{% bootstrap_javascript jquery='full' %}
+{% block optional_js %}{% endblock %}
 </body>
 </html>
