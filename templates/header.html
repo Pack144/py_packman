@@ -51,16 +51,21 @@
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'history_page' %}">Our History</a>
+                        <a href="{% url 'history_page' %}" class="nav-link">Our History</a>
                     </li>
-                    {% if user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                        <a href="{% url 'about_page' %}" class="nav-link">About Us</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'committees-list' %}" class="nav-link">Committees</a>
                     </li>
                     {% endif %}
+                    {% if user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about_page' %}">About Us</a>
+                        <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

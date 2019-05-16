@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'bootstrap4',
 
     # Local apps
-    'membership',
-    'pages',
+    'committees.apps.CommitteesConfig',
+    'membership.apps.MembershipConfig',
+    'pages.apps.PagesConfig',
 ]
 
 MIDDLEWARE = [

@@ -6,6 +6,8 @@ from .models import Page
 class CategoryInline(admin.TabularInline):
     model = Page.category.through
     extra = 0
+    verbose_name = 'category'
+    verbose_name_plural = 'categories'
 
 
 class PageAdmin(admin.ModelAdmin):

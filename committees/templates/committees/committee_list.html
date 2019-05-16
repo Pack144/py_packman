@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Committees{% endblock title %}
+
+{% block main %}
+    <h1>Committees</h1>
+    {% if committee_list %}
+    {% for committee in committee_list %}
+        <ul>
+            <li>
+                <a href="{{ committee.get_absolute_url }}">{{ committee }}</a>
+                {% if committee.description %} - {{ committee.description }}{% endif %}
+            </li>
+        </ul>
+    {% endfor %}
+    {% else %}
+    <p>No committees have been defined yet</p>
+    {% endif %}
+{% endblock main %}

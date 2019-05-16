@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}{{ committee.name }}{% endblock %}
+
+{% block main %}
+    <h1>{{ committee.name }}</h1>
+    <div>{{ committee.description }}</div>
+{% endblock main %}
