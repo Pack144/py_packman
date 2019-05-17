@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'packman';
+    src: url('/static/fonts/webfont.woff2') format('woff2'),
+    url('/static/fonts/webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+footer {
+    padding: 1rem;
+}
+
+.navbar-brand {
+    font-family: 'packman';
+    line-height: .95em;
+}
+
+#pack-identification {
+    background-color: rgba(8, 8, 8, 0.85);
+}
+
+#banner {
+    padding-top: 96px;
+    position: relative;
+    min-height: 56px;
+}
+
+#banner-nav {
+    background-color: rgba(8, 8, 8, 0.66);
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    #banner-nav {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+    }
+}
+
+body {
+    background-color: black;
+}
+
+main {
+    background-color: whitesmoke;
+    padding-top: 40px;
+    padding-bottom: 100px;
+    min-height: 600px;
+}
