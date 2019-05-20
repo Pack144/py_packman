@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 
@@ -33,7 +34,9 @@ class Member(models.Model):
     middle_name = models.CharField(max_length=32, blank=True, null=True)
     last_name = models.CharField(max_length=64)
     date_of_birth = models.DateField(blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True)
     children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
+    slug = models.SlugField(null=False, unique=True)
 
     CUB = 'S'
     GUARDIAN = 'G'
@@ -73,6 +76,9 @@ class Member(models.Model):
             return self.nickname.strip()
         else:
             return self.first_name.strip()
+
+    def get_absolute_url(self):
+        return reverse('member-detail', args=[str(self.slug)])
 
 
 class WebsiteLogin(AbstractUser):

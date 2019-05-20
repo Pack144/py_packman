@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="card" style="width: 16rem;">
+    <img src="{% if member.avatar %}/uploads/{{ member.avatar }}{% else %}/static/img/avatar_cub.png{% endif %}" class="card-img-top" alt="{{ member }}'s profile picture">
+    <div class="card-body">
+        <h5 class="card-title">{{ member }}</h5>
+        <!-- TODO: fill in membership contact information -->
+        <p class="card-text">sample body</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+</div>
