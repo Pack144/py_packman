@@ -28,16 +28,7 @@ class Rank(models.Model):
         return self.get_id_display()
 
 
-class Member(models.Model):
-    first_name = models.CharField(max_length=32)
-    nickname = models.CharField(max_length=32, blank=True, null=True)
-    middle_name = models.CharField(max_length=32, blank=True, null=True)
-    last_name = models.CharField(max_length=64)
-    date_of_birth = models.DateField(blank=True, null=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True)
-    children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
-    slug = models.SlugField(null=False, unique=True)
-
+class Role(models.Model):
     CUB = 'S'
     GUARDIAN = 'G'
     CONTRIBUTOR = 'C'
@@ -50,9 +41,26 @@ class Member(models.Model):
     )
     role = models.CharField(max_length=1, choices=ROLE_CHOICES, default=WAITLIST)
 
+    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+
+    def __str__(self):
+        return self.get_id_display()
+
+
+class Member(models.Model):
+    """Base object defining a member of the pack. Examples include a parent/guardian, cub scout, or contributor."""
+    first_name = models.CharField(max_length=32)
+    nickname = models.CharField(max_length=32, blank=True, null=True)
+    middle_name = models.CharField(max_length=32, blank=True, null=True)
+    last_name = models.CharField(max_length=64)
+    date_of_birth = models.DateField(blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True)
+    children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
+    permalink = models.SlugField(null=False, unique=True)
+
     class Meta:
         verbose_name = 'member'
-        verbose_name_plural = 'members'
+        verbose_name_plural = 'membership'
         ordering = ['last_name', 'first_name']
 
     def __str__(self):
@@ -82,7 +90,7 @@ class Member(models.Model):
 
 
 class WebsiteLogin(AbstractUser):
-
+    """If the member is allowed to log into the website, this class will store their account."""
     member = models.OneToOneField(Member, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):

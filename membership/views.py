@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -8,9 +9,10 @@ from .models import Member
 class JoinUs(generic.CreateView):
     form_class = WebsiteLoginCreationForm
     success_url = reverse_lazy('login')
-    template_name = 'members/join-us.html'
+    template_name = 'membership/join-us.html'
 
 
-class MemberDetail(generic.DetailView):
+class MemberDetail(LoginRequiredMixin, generic.DetailView):
     model = Member
-    template_name = 'members/member_detail.html'
+    slug_field = 'permalink'
+

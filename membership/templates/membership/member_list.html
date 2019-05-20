@@ -6,7 +6,7 @@
     <h1>Members</h1>
     {% if member_list %}
         {% for member in member_list %}
-            {% include 'members/member_detail_card.html' with member=member %}    {% endfor %}
+            {% include 'membership/member_detail_card.html' with member=member %}    {% endfor %}
     {% else %}
         <p>No members have joined yet</p>
     {% endif %}
