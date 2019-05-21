@@ -14,14 +14,14 @@ class WebsiteLoginAdmin(UserAdmin):
 
 class WebsiteLoginInline(admin.StackedInline):
     model = WebsiteLogin
-    exclude = ['first_name', 'last_name', 'email', 'is_staff', 'date_joined', 'is_superuser', 'user_permissions',
-               'groups', 'last_login']
-    fields = ['username', 'password', 'is_active']
+#    exclude = ['first_name', 'last_name', 'email', 'is_staff', 'date_joined', 'is_superuser', 'user_permissions',
+#               'groups', 'last_login']
+#    fields = ['username', 'is_active']
 
 
 class MemberAdmin(admin.ModelAdmin):
     fieldsets = [
-        ('Personal Information', {'fields': [('first_name', 'middle_name', 'last_name', 'nickname'), 'date_of_birth']}),
+        ('Personal Information', {'fields': [('first_name', 'middle_name', 'last_name', 'nickname'), 'date_of_birth', 'avatar']}),
         ('Family', {'fields': ['children']})
     ]
     list_display = ['full_name', 'age']

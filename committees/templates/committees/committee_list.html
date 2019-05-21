@@ -5,14 +5,14 @@
 {% block main %}
     <h1>Committees</h1>
     {% if committee_list %}
+    <ul>
     {% for committee in committee_list %}
-        <ul>
-            <li>
-                <a href="{{ committee.get_absolute_url }}">{{ committee }}</a>
-                {% if committee.description %} - {{ committee.description }}{% endif %}
-            </li>
-        </ul>
+        <li>
+            <a href="{{ committee.get_absolute_url }}">{{ committee }}</a>
+            {% if committee.description %} - {{ committee.description }}{% endif %}
+        </li>
     {% endfor %}
+    </ul>
     {% else %}
     <p>No committees have been defined yet</p>
     {% endif %}
