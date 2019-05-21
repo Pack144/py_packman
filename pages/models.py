@@ -12,10 +12,10 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
 
-class Page(models.Model):
+class DynamicPage(models.Model):
     title = models.CharField(max_length=255)
     body = RichTextField()
-    post_date = models.DateField()
+    post_datetime = models.DateTimeField(auto_now_add=True)
     attachment = models.FileField(upload_to='pages/', null=True, blank=True)
     category = models.ManyToManyField(Category, related_name='pages')
     permalink = models.SlugField(unique=True)

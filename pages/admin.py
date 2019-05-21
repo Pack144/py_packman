@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Category
-from .models import Page
+from django.utils import timezone
+
+from .models import Category, DynamicPage
 
 
 class CategoryInline(admin.TabularInline):
-    model = Page.category.through
+    model = DynamicPage.category.through
     extra = 0
     verbose_name = 'category'
     verbose_name_plural = 'categories'
@@ -12,12 +13,12 @@ class CategoryInline(admin.TabularInline):
 
 class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {"permalink": ("title", )}
-    list_display = ('title', 'post_date', )
+    list_display = ('title', 'post_datetime', )
     list_filter = ('category',)
-    search_fields = ['title', 'category', ]
+    search_fields = ['title', 'category', 'post_datetime']
     inlines = [CategoryInline]
     exclude = ['category']
 
 
 admin.site.register(Category)
-admin.site.register(Page, PageAdmin)
+admin.site.register(DynamicPage, PageAdmin)

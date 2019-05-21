@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Page
+from .models import DynamicPage
 
 
 def about_page(request):
@@ -15,5 +15,5 @@ def home_page(request):
 
 
 def dynamic_page(request, permalink):
-    page_data = get_object_or_404(Page, permalink=permalink)
+    page_data = get_object_or_404(DynamicPage, permalink=permalink)
     return render(request, 'pages/page.html', {'dynamic_page': page_data})
