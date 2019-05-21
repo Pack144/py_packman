@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'bootstrap4',
 
     # Local apps
-    'committees.apps.CommitteesConfig',
+    'assignments.apps.CommitteesConfig',
     'membership.apps.MembershipConfig',
     'pages.apps.PagesConfig',
 ]
