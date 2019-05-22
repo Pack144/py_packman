@@ -14,5 +14,5 @@ class JoinUs(generic.CreateView):
 
 class MemberDetail(LoginRequiredMixin, generic.DetailView):
     model = Member
-    slug_field = 'permalink'
+    slug_field = 'slug'
 

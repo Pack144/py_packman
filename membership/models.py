@@ -4,49 +4,6 @@ from django.urls import reverse
 from django.utils import timezone
 
 
-class Rank(models.Model):
-    BOBCAT = 1
-    TIGER = 2
-    WOLF = 3
-    BEAR = 4
-    JR_WEBE = 5
-    SR_WEBE = 6
-    ARROW = 7
-    RANK_CHOICES = (
-        (BOBCAT, "Bobcat"),
-        (TIGER, "Tiger"),
-        (WOLF, "Wolf"),
-        (BEAR, "Bear"),
-        (JR_WEBE, "Jr. Webelos"),
-        (SR_WEBE, "Sr. Webelos"),
-        (ARROW, "Arrow of Light"),
-    )
-
-    id = models.PositiveSmallIntegerField(choices=RANK_CHOICES, primary_key=True)
-
-    def __str__(self):
-        return self.get_id_display()
-
-
-class Role(models.Model):
-    CUB = 'S'
-    GUARDIAN = 'G'
-    CONTRIBUTOR = 'C'
-    WAITLIST = 'W'
-    ROLE_CHOICES = (
-        (CUB, 'Cub'),
-        (GUARDIAN, 'Guardian'),
-        (CONTRIBUTOR, 'Contributor'),
-        (WAITLIST, 'Wait list'),
-    )
-    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default=WAITLIST)
-
-    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
-
-    def __str__(self):
-        return self.get_id_display()
-
-
 class Member(models.Model):
     """Base object defining a member of the pack. Examples include a parent/guardian, cub scout, or contributor."""
     first_name = models.CharField(max_length=32)
@@ -56,11 +13,20 @@ class Member(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True)
     children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
-    permalink = models.SlugField(null=False, unique=True)
+    slug = models.SlugField(null=False, unique=True)
+
+    date_added = models.DateField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    ROLE_CHOICES = (
+        ('S', 'Cub'),
+        ('P', 'Parent/Guardian'),
+        ('C', 'Contributor'),
+    )
+    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default='P')
 
     class Meta:
-        verbose_name = 'member'
-        verbose_name_plural = 'membership'
+        verbose_name_plural = 'all members'
         ordering = ['last_name', 'first_name']
 
     def __str__(self):
@@ -74,12 +40,12 @@ class Member(models.Model):
                     (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
 
     def full_name(self):
-        return "{} {}".format(self.short_name(), self.last_name).strip()
+        return "{} {}".format(self.name(), self.last_name).strip()
 
     def parents(self):
         return self.parents.all()
 
-    def short_name(self):
+    def name(self):
         if self.nickname:
             return self.nickname.strip()
         else:
@@ -95,3 +61,39 @@ class WebsiteLogin(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class ContributorManager(models.Manager):
+    def get_queryset(self):
+        return super(ContributorManager, self).get_queryset().filter(role='C')
+
+
+class Contributor(Member):
+    objects = ContributorManager()
+
+    class Meta:
+        proxy = True
+
+
+class ParentManager(models.Manager):
+    def get_queryset(self):
+        return super(ParentManager, self).get_queryset().filter(role='P')
+
+
+class Parent(Member):
+    objects = ParentManager()
+
+    class Meta:
+        proxy = True
+
+
+class ScoutManager(models.Manager):
+    def get_queryset(self):
+        return super(ScoutManager, self).get_queryset().filter(role='S')
+
+
+class Scout(Member):
+    objects = ScoutManager()
+
+    class Meta:
+        proxy = True

@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party packages
+    'bootstrap4',
     'ckeditor',
     'ckeditor_uploader',
-    'bootstrap4',
+    'phonenumber_field',
 
     # Local apps
+    'address_book.apps.AddressBookConfig',
     'committees.apps.CommitteesConfig',
     'membership.apps.MembershipConfig',
     'pages.apps.PagesConfig',
