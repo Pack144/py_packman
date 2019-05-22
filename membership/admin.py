@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 
 from .forms import WebsiteLoginCreationForm, WebsiteLoginChangeForm
 from .models import Member, WebsiteLogin, Parent, Scout, Contributor
+from assignments.models import Committee, Den
 
 
 class WebsiteLoginAdmin(UserAdmin):
@@ -22,6 +23,11 @@ class MemberAdmin(admin.ModelAdmin):
     exclude = []
     inlines = [WebsiteLoginInline]
     prepopulated_fields = {'permalink': ('first_name', 'middle_name', 'last_name')}
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == 'children':
+            kwargs['queryset'] = Member.objects.filter(role='S')
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
 class ContributorAdmin(MemberAdmin):

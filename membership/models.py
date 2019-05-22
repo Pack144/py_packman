@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from assignments.models import Committee, Den
+from address_book.models import Address, PhoneNumber, Venue
 
 
 class Member(models.Model):
@@ -14,11 +15,6 @@ class Member(models.Model):
     last_name = models.CharField(max_length=64)
     date_of_birth = models.DateField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profiles/', blank=True)
-    children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
-    permalink = models.SlugField(null=False, unique=True)
-
-    date_added = models.DateField(auto_now_add=True)
-    last_updated = models.DateTimeField(auto_now=True)
 
     ROLE_CHOICES = (
         ('S', 'Cub'),
@@ -26,6 +22,21 @@ class Member(models.Model):
         ('C', 'Contributor'),
     )
     role = models.CharField(max_length=1, choices=ROLE_CHOICES, default='P')
+
+    # Useful information for parents and contributors
+    children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
+    committee_leadership = models.ManyToManyField(Committee, blank=True, related_name='membership')
+    den_leadership = models.ManyToManyField(Den, blank=True, related_name='leadership')
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True, related_name='member_address')
+    phone_number = models.ManyToManyField(Address, blank=True, related_name='member_phone')
+
+    # Useful information for cubs
+    den_assigned = models.ForeignKey(Den, on_delete=models.CASCADE, null=True, blank=True, related_name='membership')
+    school = models.ForeignKey(Venue, on_delete=models.CASCADE, null=True, blank=True, related_name='school_member')
+
+    date_added = models.DateField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
+    permalink = models.SlugField(null=False, unique=True)
 
     class Meta:
         verbose_name_plural = 'all members'

@@ -14,7 +14,7 @@ class Address(models.Model):
         verbose_name_plural = 'addresses'
 
     def __str__(self):
-        return {}, {}, {}, {}.format(self.street, self.city, self.state, self.zip_code)
+        return '{}, {}, {}, {}'.format(self.street, self.city, self.state, self.zip_code)
 
 
 class PhoneNumber(models.Model):
@@ -33,3 +33,26 @@ class PhoneNumber(models.Model):
 
     def __str__(self):
         return str(self.number)
+
+
+class VenueType(models.Model):
+    type = models.CharField(max_length=16, help_text='e.g. School, Campground, Park, etc.')
+
+    date_added = models.DateField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.type
+
+
+class Venue(models.Model):
+    name = models.CharField(max_length=128, unique=True)
+    type = models.ForeignKey(VenueType, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True, related_name='venue')
+    phone_number = models.ForeignKey(PhoneNumber, on_delete=models.CASCADE, null=True, blank=True, related_name='venue')
+
+    date_added = models.DateField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
