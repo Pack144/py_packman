@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Committee
+from .models import Committee, Den
 
 
 class PageInline(admin.StackedInline):
@@ -16,4 +16,9 @@ class CommitteeAdmin(admin.ModelAdmin):
     inlines = [PageInline]
 
 
+class DenAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'permalink': ('name',)}
+
+
 admin.site.register(Committee, CommitteeAdmin)
+admin.site.register(Den, DenAdmin)

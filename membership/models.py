@@ -13,7 +13,7 @@ class Member(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True)
     children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
-    slug = models.SlugField(null=False, unique=True)
+    permalink = models.SlugField(null=False, unique=True)
 
     date_added = models.DateField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
@@ -52,7 +52,7 @@ class Member(models.Model):
             return self.first_name.strip()
 
     def get_absolute_url(self):
-        return reverse('member-detail', args=[str(self.slug)])
+        return reverse('member-detail', args=[str(self.permalink)])
 
 
 class WebsiteLogin(AbstractUser):

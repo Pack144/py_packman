@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-from membership.models import Member
+from membership.models import Member, Parent, Scout, Contributor
 from pages.models import DynamicPage
 
 

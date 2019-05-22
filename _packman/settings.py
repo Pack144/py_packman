@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'ckeditor',
     'ckeditor_uploader',
-    'phonenumber_field',
 
     # Local apps
     'address_book.apps.AddressBookConfig',
