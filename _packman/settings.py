@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'address_book.apps.AddressBookConfig',
-    'committees.apps.CommitteesConfig',
+    'assignments.apps.AssignmentsConfig',
     'membership.apps.MembershipConfig',
     'pages.apps.PagesConfig',
 ]
