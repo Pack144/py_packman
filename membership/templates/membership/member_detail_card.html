@@ -1,8 +1,8 @@
 {% load static %}
 
 <div class="card" style="width: 16rem;">
-    {% if member.avatar %}
-    <img src="/uploads/{{ member.avatar }}" class="card-img-top" alt="{{ member }}'s profile picture">
+    {% if member.profile_picture %}
+    <img src="/uploads/{{ member.profile_picture }}" class="card-img-top" alt="{{ member }}'s profile picture">
     {% else %}
         <img src="/static/img/avatar_generic.png" class="card-img-top" alt="No profile picture">
 
@@ -10,9 +10,21 @@
     <div class="card-body">
         <h5 class="card-title">{{ member }}</h5>
         <!-- TODO: fill in membership contact information -->
-        <p class="card-text">sample body</p>
-        {% if member.date_of_birth %}
-            <p class="card-text"><small class="text-muted">{{ member.age }} years old</small></p>
-        {% endif %}
+    {% if member.address %}
+        <p class="card-text">{{ member.address.street }}<br>
+        {{ member.address.city }}, {{ member.address.state }} {{ member.address.zip_code }}</p>
+    {% endif %}
+    {% if member.phone_number.count %}
+      {% for number in member.phone_number.all %}
+        <p class="card-text"><strong>{{ number.type }}:</strong> {{ number }}</p>
+      {% endfor %}
+    {% endif %}
+    {% if member.den_assigned %}
+        <p class="card-text">Den {{ member.den_assigned.number }}</p>
+    {% endif %}
+    {% if member.date_of_birth %}
+        <p class="card-text"><small class="text-muted">{{ member.age }} years old</small></p>
+    {% endif %}
+
     </div>
 </div>
