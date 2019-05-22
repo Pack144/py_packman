@@ -28,7 +28,7 @@ class Member(models.Model):
     committee_leadership = models.ManyToManyField(Committee, blank=True, related_name='membership')
     den_leadership = models.ManyToManyField(Den, blank=True, related_name='leadership')
     address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True, blank=True, related_name='member_address')
-    phone_number = models.ManyToManyField(Address, blank=True, related_name='member_phone')
+    phone_number = models.ManyToManyField(PhoneNumber, blank=True, related_name='member_phone')
 
     # Useful information for cubs
     den_assigned = models.ForeignKey(Den, on_delete=models.CASCADE, null=True, blank=True, related_name='membership')
