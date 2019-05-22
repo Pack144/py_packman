@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 
-from membership.models import Member, Parent, Scout, Contributor
 from pages.models import DynamicPage
 
 
@@ -36,8 +35,6 @@ class Committee(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     permalink = models.SlugField()
-    chair = models.ManyToManyField(Member, blank=True, related_name='committee_chair')
-    assistant = models.ManyToManyField(Member, blank=True, related_name='committee_assignment')
 
     class Meta:
         ordering = ['name']
@@ -57,8 +54,6 @@ class Den(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     permalink = models.SlugField()
-    leader = models.ManyToManyField(Member, blank=True, related_name='den_leader')
-    rank = models.ForeignKey(Rank, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['number']

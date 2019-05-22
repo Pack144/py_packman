@@ -33,6 +33,7 @@ class ParentAdmin(MemberAdmin):
 
 
 class ScoutAdmin(MemberAdmin):
+    exclude = ['children']
     inlines = []
 
 

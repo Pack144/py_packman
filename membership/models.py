@@ -3,6 +3,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
+from assignments.models import Committee, Den
+
 
 class Member(models.Model):
     """Base object defining a member of the pack. Examples include a parent/guardian, cub scout, or contributor."""
@@ -11,7 +13,7 @@ class Member(models.Model):
     middle_name = models.CharField(max_length=32, blank=True, null=True)
     last_name = models.CharField(max_length=64)
     date_of_birth = models.DateField(blank=True, null=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True)
+    profile_picture = models.ImageField(upload_to='profiles/', blank=True)
     children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)
     permalink = models.SlugField(null=False, unique=True)
 
@@ -56,7 +58,7 @@ class Member(models.Model):
 
 
 class WebsiteLogin(AbstractUser):
-    """If the member is allowed to log into the website, this class will store their account."""
+    """If the member is allowed to log into the website, this class will store their credentials."""
     member = models.OneToOneField(Member, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
