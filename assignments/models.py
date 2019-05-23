@@ -75,11 +75,7 @@ class Den(models.Model):
         ordering = ['number']
 
     def __str__(self):
-        return 'Den {}'.format(self.number)
+        return 'Den {}: {}'.format(self.number, self.get_rank_display())
 
     def get_absolute_url(self):
         return reverse('den-detail', args=[str(self.number)])
-
-    def display_rank(self):
-        return self.rank.get_id_display()
-
