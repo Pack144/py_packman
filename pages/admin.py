@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils import timezone
 
-from .models import Category, DynamicPage
+from .models import Category, DynamicPage, AboutPage, HomePage
 
 
 class CategoryInline(admin.TabularInline):
@@ -22,3 +22,5 @@ class PageAdmin(admin.ModelAdmin):
 
 admin.site.register(Category)
 admin.site.register(DynamicPage, PageAdmin)
+admin.site.register(AboutPage)
+admin.site.register(HomePage)
