@@ -48,6 +48,7 @@ class Committee(models.Model):
 
 class Den(models.Model):
     number = models.PositiveIntegerField(primary_key=True)
+    page = models.ManyToManyField(DynamicPage, blank=True, related_name='den')
 
     date_added = models.DateField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)

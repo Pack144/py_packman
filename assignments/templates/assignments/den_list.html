@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Dens{% endblock title %}
+
+{% block main %}
+    <h1>Dens</h1>
+    {% if den_list %}
+    <ul>
+    {% for den in den_list %}
+        <li>
+            <a href="{{ den.get_absolute_url }}">{{ den }}</a>
+            <p><small class="text-muted">{{ den.membership.count }} member{% if not den.membership.count == 1 %}s{% endif %}</small></p>
+            {% if committee.description %} - {{ committee.description }}{% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No dens have been defined yet</p>
+    {% endif %}
+{% endblock main %}

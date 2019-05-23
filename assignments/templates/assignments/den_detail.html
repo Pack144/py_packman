@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ den }}{% endblock %}
+
+{% block main %}
+    <h1>Den {{ den.number }}</h1>
+    <div>{{ den.get_rank_display }}</div>
+    <h2>Den Leader{% if not den.leadership.count == 1 %}s{% endif %}</h2>
+    {% if den.leadership.count %}
+        <ul>
+            {% for leader in den.leadership.all %}
+            <li><a href="{{ leader.get_absolute_url }}">{{ leader }}</a></li>{% endfor %}
+        </ul>
+    {% else %}<p>This den has no leaders assigned</p>
+    {% endif %}
+
+    <h2>Members</h2>
+    {% if den.membership.count %}
+        <ul>
+        {% for member in den.membership.all %}
+            <li><a href="{{ member.get_absolute_url }}">{{ member }}</a></li>{% endfor %}
+        </ul>
+        {% else %}
+        <p>This den has no members currently assigned</p>
+    {% endif %}
+
+{% endblock main %}
