@@ -16,3 +16,6 @@ class MemberDetail(LoginRequiredMixin, generic.DetailView):
     model = Member
     slug_field = 'permalink'
 
+
+class MemberList(LoginRequiredMixin, generic.ListView):
+    model = Member

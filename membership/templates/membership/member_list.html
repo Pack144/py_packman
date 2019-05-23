@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Members{% endblock title %}
+{% block title %}All Members{% endblock title %}
 
 {% block main %}
-    <h1>Members</h1>
+    <h1>All Members</h1>
     {% if member_list %}
-        {% for member in member_list %}
-            {% include 'membership/member_detail_card.html' with member=member %}    {% endfor %}
+        <ul>{% for member in member_list %}
+            <li><a href="{{ member.get_absolute_url }}">{{ member }}</a></li>{% endfor %}
+        </ul>
     {% else %}
         <p>No members have joined yet</p>
     {% endif %}

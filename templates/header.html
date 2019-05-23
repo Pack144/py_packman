@@ -29,6 +29,9 @@
                     {{ user }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="userMenu">
+                {% if user.is_staff %}
+                    <a class="dropdown-item" href="{% url 'admin:index' %}" class="nav-link">Admin</a>
+                {% endif %}
                     <a class="dropdown-item disabled" href="#">
                         My family
                     </a>
@@ -81,19 +84,18 @@
                     <li class="nav-item">
                         <a href="{% url 'history_page' %}" class="nav-link">Our History</a>
                     </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'committees-list' %}" class="nav-link">Committees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'members-list' %}" class="nav-link">Members</a>
+                    </li>
+                {% endif %}
                     <li class="nav-item">
                         <a href="{% url 'about_page' %}" class="nav-link">About Us</a>
                     </li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a href="{% url 'committees-list' %}" class="nav-link">Committees</a>
-                        </li>
-                    {% endif %}
-                    {% if user.is_staff %}
-                        <li class="nav-item">
-                            <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>
-                        </li>
-                    {% endif %}
+
                 </ul>
             </div>
         </nav>
