@@ -1,7 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}{{ member.name }}{% endblock %}
+{% block title %}{{ member }} Details{% endblock %}
 
 {% block main %}
-    {% include 'membership/member_detail_card.html' %}
+    <div class="container">
+        <h1>{{ member }}</h1>
+        {% include 'membership/member_detail_card.html' %}
+    </div>
+    {% if member.parents.count and member.role == 'S' %}
+    <div class="container">
+        <hr>
+        <h3>{{ member.name }}'s Parent{% if not member.parents.count == 1 %}s{% endif %}</h3>
+        <div class="card-deck"> {% for parent in member.parents.all %}
+            <a href="{{ parent.get_absolute_url }}">
+                {% include 'membership/member_detail_card.html' with member=parent %}
+            </a> {% endfor %}
+        </div>
+    </div>{% endif %}
+   {% if member.children.count %}
+    <div class="container">
+        <hr>
+        <h3>{{ member.name }}'s Child{% if not member.children.count == 1 %}ren{% endif %}</h3>
+        <div class="card-deck"> {% for child in member.children.all %}
+            <a href="{{ child.get_absolute_url }}">
+                {% include 'membership/member_detail_card.html' with member=child %}
+            </a> {% endfor %}
+        </div>
+    </div>{% endif %}
 {% endblock main %}
