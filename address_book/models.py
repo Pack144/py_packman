@@ -1,5 +1,7 @@
 from django.db import models
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 class Address(models.Model):
     street = models.CharField(max_length=128)
@@ -18,7 +20,7 @@ class Address(models.Model):
 
 
 class PhoneNumber(models.Model):
-    number = models.CharField(max_length=16)
+    number = PhoneNumberField()
     TYPE_CHOICES = (
         ('H', 'Home'),
         ('M', 'Mobile'),
@@ -32,7 +34,7 @@ class PhoneNumber(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.number)
+        return self.number.as_national
 
 
 class VenueType(models.Model):

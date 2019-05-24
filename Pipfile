@@ -12,6 +12,7 @@ django-js-asset = "==1.2.2"
 pytz = "==2019.1"
 Django = "==2.2.1"
 Pillow = "==6.0.0"
+django-phonenumber-field = "*"
 
 [requires]
 python_version = "3.7"

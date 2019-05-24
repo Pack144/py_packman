@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'ckeditor',
     'ckeditor_uploader',
+    'phonenumber_field',
 
     # Local apps
     'address_book.apps.AddressBookConfig',
@@ -137,6 +138,7 @@ MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_UPLOAD_PATH = MEDIA_ROOT
+PHONENUMBER_DEFAULT_REGION = 'US'
 
 # Email settings for development environment
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

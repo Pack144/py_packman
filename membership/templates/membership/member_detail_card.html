@@ -22,9 +22,11 @@
         {{ member.address.city }}, {{ member.address.state }} {{ member.address.zip_code }}</p>
     {% endif %}
     {% if member.phone_number.count %}
+        <p class="card-text">
       {% for number in member.phone_number.all %}
-        <p class="card-text"><strong>{{ number.type }}:</strong> {{ number }}</p>
+          <strong>{{ number.get_type_display }}:</strong> {{ number }}<br>
       {% endfor %}
+        </p>
     {% endif %}
     {% if member.den_assigned %}
         <img src="/static/img/den_{{ member.den_assigned.number }}_patch.jpg" class="card-img" alt="Den {{ member.den_assigned.number }} patch">
