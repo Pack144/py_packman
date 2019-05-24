@@ -21,7 +21,14 @@ class Member(models.Model):
         ('P', 'Parent/Guardian'),
         ('C', 'Contributor'),
     )
-    role = models.CharField(max_length=1, choices=ROLE_CHOICES, default='P')
+    role = models.CharField(max_length=1, choices=ROLE_CHOICES, blank=True, null=True)
+
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('U', 'Prefer not to say'),
+    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='U')
 
     # Useful information for parents and contributors
     children = models.ManyToManyField('self', related_name='parents', symmetrical=False, blank=True)

@@ -3,6 +3,12 @@
 <div class="card" style="width: 16rem;">
 {% if member.profile_picture %}
     <img src="/uploads/{{ member.profile_picture }}" class="card-img-top" alt="{{ member }}'s profile picture">
+{% elif member.role == 'S' %}
+    <img src="/static/img/avatar_cub.png" class="card-img-top" alt="No profile picture">
+{% elif member.gender == 'M' %}
+    <img src="/static/img/avatar_man.png" class="card-img-top" alt="No profile picture">
+{% elif member.gender == 'F' %}
+    <img src="/static/img/avatar_woman.png" class="card-img-top" alt="No profile picture">
 {% else %}
     <img src="/static/img/avatar_generic.png" class="card-img-top" alt="No profile picture">
 {% endif %}
