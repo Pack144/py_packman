@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ den }}{% endblock %}
 
 {% block main %}
+    <img src="/static/img/den_{{ den.number }}_patch.jpg" class="img-fluid float-left mw-25" alt="Den {{ den.number }} patch">
+    <img src="/static/img/{{ den.get_rank_display.lower }}_rank_patch.jpg" class="img-fluid float-right mw-25" alt="{{ den.get_rank_display }} patch">
     <h1>Den {{ den.number }}</h1>
     <div>{{ den.get_rank_display }}</div>
     <h2>Den Leader{% if not den.leadership.count == 1 %}s{% endif %}</h2>

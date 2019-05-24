@@ -1,14 +1,16 @@
 {% load static %}
 
 <div class="card" style="width: 16rem;">
-    {% if member.profile_picture %}
+{% if member.profile_picture %}
     <img src="/uploads/{{ member.profile_picture }}" class="card-img-top" alt="{{ member }}'s profile picture">
-    {% else %}
-        <img src="/static/img/avatar_generic.png" class="card-img-top" alt="No profile picture">
-    {% endif %}
+{% else %}
+    <img src="/static/img/avatar_generic.png" class="card-img-top" alt="No profile picture">
+{% endif %}
     <div class="card-body">
-        <h5 class="card-title">{{ member }}</h5>
-        <!-- TODO: fill in membership contact information -->
+        <h5 class="card-title">{{ member }}
+    {% if member.date_of_birth %}<br>
+        <small class="text-muted">{{ member.age }} years old</small>
+    {% endif %}</h5>
     {% if member.address %}
         <p class="card-text">{{ member.address.street }}<br>
         {{ member.address.city }}, {{ member.address.state }} {{ member.address.zip_code }}</p>
@@ -19,10 +21,7 @@
       {% endfor %}
     {% endif %}
     {% if member.den_assigned %}
-        <p class="card-text">Den {{ member.den_assigned.number }}</p>
-    {% endif %}
-    {% if member.date_of_birth %}
-        <p class="card-text"><small class="text-muted">{{ member.age }} years old</small></p>
+        <img src="/static/img/den_{{ member.den_assigned.number }}_patch.jpg" class="card-img" alt="Den {{ member.den_assigned.number }} patch">
     {% endif %}
 
     </div>
