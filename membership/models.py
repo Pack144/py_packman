@@ -15,6 +15,8 @@ class Member(models.Model):
     last_name = models.CharField(max_length=64)
     date_of_birth = models.DateField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profiles/', blank=True)
+    active = models.BooleanField(default=True)
+    accepted_into_pack = models.BooleanField(default=False)
 
     ROLE_CHOICES = (
         ('S', 'Cub'),
