@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -12,10 +12,12 @@ class JoinUs(generic.CreateView):
     template_name = 'membership/join-us.html'
 
 
-class MemberDetail(LoginRequiredMixin, generic.DetailView):
+class MemberDetail(PermissionRequiredMixin, generic.DetailView):
+    permission_required = ['assignments.view_member']
     model = Member
     slug_field = 'permalink'
 
 
-class MemberList(LoginRequiredMixin, generic.ListView):
+class MemberList(PermissionRequiredMixin, generic.ListView):
+    permission_required = ['assignments.view_member']
     model = Member
