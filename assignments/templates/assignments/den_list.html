@@ -5,9 +5,9 @@
 {% block main %}
     <h1>Dens</h1>
     {% if den_list %}
-    <ul>
+    <ul class="list-group">
     {% for den in den_list %}
-        <li>
+        <li class="list-group-item">
             <a href="{{ den.get_absolute_url }}">{{ den }}</a>
             <p><small class="text-muted">{{ den.membership.count }} member{% if not den.membership.count == 1 %}s{% endif %}</small></p>
             {% if committee.description %} - {{ committee.description }}{% endif %}
