@@ -9,7 +9,7 @@
             <li class="breadcrumb-item active" aria-current="page">Members</li>
         </ol>
     </nav>
-    <div class="btn-group" role="group" aria-label="Membership Filter">
+    <div class="btn-group btn-group-sm" role="group" aria-label="Membership Filter">
         <a href="{% url 'member-list' %}" class="btn btn-secondary active">All Members</a>
         <a href="{% url 'parent-list' %}" class="btn btn-secondary">Parents</a>
         <a href="{% url 'scout-list' %}" class="btn btn-secondary">Cubs</a>
@@ -17,7 +17,12 @@
     </div>
     {% if member_list %}
         <ul class="list-group">{% for member in member_list %}
-            <li class="list-group-item"><a href="{{ member.get_absolute_url }}">{{ member }}</a></li>{% endfor %}
+            <li class="list-group-item">
+                <a href="{{ member.get_absolute_url }}">{{ member }}</a>
+                {% if member.role == 'P' %}<span class="badge badge-primary">Parent</span>
+                {% elif member.role == 'S' %}<span class="badge badge-warning">Cub</span>
+                {% elif member.role == 'C' %}<span class="badge badge-info">Friend of the Pack</span>{% endif %}
+            </li>{% endfor %}
         </ul>
     {% else %}
         <div class="alert alert-light" role="alert">No members have joined yet</div>

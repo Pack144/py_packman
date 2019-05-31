@@ -13,10 +13,10 @@
     <img src="/static/img/avatar_generic.png" class="card-img-top" alt="No profile picture">
 {% endif %}
     <div class="card-body">
-        <h5 class="card-title">{{ member }}
-    {% if member.date_of_birth %}<br>
-        <small class="text-muted">{{ member.age }} years old</small>
-    {% endif %}</h5>
+        <h5 class="card-title">
+            {{ member }}
+            {% if member.date_of_birth %}<br><small class="text-muted">{{ member.age }} years old</small>{% endif %}
+        </h5>
     {% if member.address %}
         <p class="card-text">{{ member.address.street }}<br>
         {{ member.address.city }}, {{ member.address.state }} {{ member.address.zip_code }}</p>
@@ -31,6 +31,5 @@
     {% if member.den_assigned %}
         <img src="/static/img/den_{{ member.den_assigned.number }}_patch.jpg" class="card-img" alt="Den {{ member.den_assigned.number }} patch">
     {% endif %}
-
     </div>
 </div>
