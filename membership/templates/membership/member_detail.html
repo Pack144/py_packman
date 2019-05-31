@@ -3,25 +3,29 @@
 {% block title %}{{ member }} Details{% endblock %}
 
 {% block main %}
-    <div class="container">
-    <p></p><a href="{% url 'members-list' %}">< All Members</a></p>
-        <h1>{{ member }}</h1>
-        {% include 'membership/member_detail_card.html' %}
-    {% if member.parents.count and member.role == 'S' %}
-        <hr>
-        <h3>{{ member.name }}'s Parent{% if not member.parents.count == 1 %}s{% endif %}</h3>
-        <div class="card-deck"> {% for parent in member.parents.all %}
-            <a href="{{ parent.get_absolute_url }}">
-                {% include 'membership/member_detail_card.html' with member=parent %}
-            </a> {% endfor %}
-        </div>{% endif %}
-   {% if member.children.count %}
-        <hr>
-        <h3>{{ member.name }}'s Child{% if not member.children.count == 1 %}ren{% endif %}</h3>
-        <div class="card-deck"> {% for child in member.children.all %}
-            <a href="{{ child.get_absolute_url }}">
-                {% include 'membership/member_detail_card.html' with member=child %}
-            </a> {% endfor %}
-        </div>{% endif %}
-    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home_page' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'members-list' %}">All Members</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ member }}</li>
+        </ol>
+    </nav>
+    <h1>{{ member }}</h1>
+    {% include 'membership/member_detail_card.html' %}
+{% if member.parents.count and member.role == 'S' %}
+    <hr>
+    <h3>{{ member.name }}'s Parent{% if not member.parents.count == 1 %}s{% endif %}</h3>
+    <div class="card-deck"> {% for parent in member.parents.all %}
+        <a href="{{ parent.get_absolute_url }}">
+            {% include 'membership/member_detail_card.html' with member=parent %}
+        </a> {% endfor %}
+    </div>{% endif %}
+{% if member.children.count %}
+    <hr>
+    <h3>{{ member.name }}'s Child{% if not member.children.count == 1 %}ren{% endif %}</h3>
+    <div class="card-deck"> {% for child in member.children.all %}
+        <a href="{{ child.get_absolute_url }}">
+            {% include 'membership/member_detail_card.html' with member=child %}
+        </a> {% endfor %}
+    </div>{% endif %}
 {% endblock main %}

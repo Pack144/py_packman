@@ -3,6 +3,13 @@
 {% block title %}Dens{% endblock title %}
 
 {% block main %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home_page' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">All Dens</li>
+        </ol>
+    </nav>
+
     <h1>Dens</h1>
     {% if den_list %}
     <ul class="list-group">
