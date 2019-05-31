@@ -2,6 +2,13 @@
 {% block title %}Our History{% endblock %}
 
 {% block main %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home_page' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Our History</li>
+        </ol>
+    </nav>
+
     <h1>Our History</h1>
 
     <p>
