@@ -17,11 +17,10 @@
         <li class="list-group-item">
             <a href="{{ den.get_absolute_url }}">{{ den }}</a>
             <p><small class="text-muted">{{ den.membership.count }} member{% if not den.membership.count == 1 %}s{% endif %}</small></p>
-            {% if committee.description %} - {{ committee.description }}{% endif %}
         </li>
     {% endfor %}
     </ul>
     {% else %}
-    <p>No dens have been defined yet</p>
+        <div class="alert alert-light" role="alert">No dens have been defined yet</div>
     {% endif %}
 {% endblock main %}

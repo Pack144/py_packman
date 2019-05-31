@@ -13,7 +13,7 @@
     </nav>
     <div class="bg-white" style="height: 100px;">
         <img src="/static/img/den_{{ den.number }}_patch.jpg" class="img-fluid float-left h-75 m-2 align-middle" alt="Den {{ den.number }} patch">
-        <img src="/static/img/{{ den.get_rank_display.lower }}_rank.jpg" class="img-fluid float-right h-75 m-2 align-middle" alt="{{ den.get_rank_display }} patch">
+        {% if den.rank %}<img src="/static/img/{{ den.get_rank_display|slugify }}.jpg" class="img-fluid h-75 m-2 align-middle" alt="{{ den.get_rank_display }} patch">{% endif %}
     </div>
     <h2>Leader{% if not den.leadership.count == 1 %}s{% endif %}</h2>
     {% if den.leadership.count %}<ul class="list-group">
