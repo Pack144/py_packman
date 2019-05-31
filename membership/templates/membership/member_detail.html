@@ -6,7 +6,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'home_page' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'members-list' %}">All Members</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'member-list' %}">Members</a></li>
+            {% if member.role == 'P' %}<li class="breadcrumb-item"><a href="{% url 'parent-list' %}">Parents</a></li>{% endif %}
+            {% if member.role == 'S' %}<li class="breadcrumb-item"><a href="{% url 'scout-list' %}">Cubs</a></li>{% endif %}
+            {% if member.role == 'C' %}<li class="breadcrumb-item"><a href="{% url 'contributor-list' %}">Contributors</a></li>{% endif %}
             <li class="breadcrumb-item active" aria-current="page">{{ member }}</li>
         </ol>
     </nav>
@@ -14,7 +17,7 @@
     {% include 'membership/member_detail_card.html' %}
 {% if member.parents.count and member.role == 'S' %}
     <hr>
-    <h3>{{ member.name }}'s Parent{% if not member.parents.count == 1 %}s{% endif %}</h3>
+    <h4>{{ member.name }}'s Parent{{ member.parents.count|pluralize }}</h4>
     <div class="card-deck"> {% for parent in member.parents.all %}
         <a href="{{ parent.get_absolute_url }}">
             {% include 'membership/member_detail_card.html' with member=parent %}
@@ -22,7 +25,7 @@
     </div>{% endif %}
 {% if member.children.count %}
     <hr>
-    <h3>{{ member.name }}'s Child{% if not member.children.count == 1 %}ren{% endif %}</h3>
+    <h4>{{ member.name }}'s Child{{ member.children.count|pluralize:'ren' }}</h4>
     <div class="card-deck"> {% for child in member.children.all %}
         <a href="{{ child.get_absolute_url }}">
             {% include 'membership/member_detail_card.html' with member=child %}

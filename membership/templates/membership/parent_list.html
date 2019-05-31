@@ -6,18 +6,19 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'home_page' %}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Members</li>
+            <li class="breadcrumb-item"><a href="{% url 'member-list' %}">Members</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Parents</li>
         </ol>
     </nav>
     <div class="btn-group" role="group" aria-label="Membership Filter">
-        <a href="{% url 'member-list' %}" class="btn btn-secondary active">All Members</a>
-        <a href="{% url 'parent-list' %}" class="btn btn-secondary">Parents</a>
+        <a href="{% url 'member-list' %}" class="btn btn-secondary">All Members</a>
+        <a href="{% url 'parent-list' %}" class="btn btn-secondary Active">Parents</a>
         <a href="{% url 'scout-list' %}" class="btn btn-secondary">Cubs</a>
         <a href="{% url 'contributor-list' %}" class="btn btn-secondary">Friends of the Pack</a>
     </div>
-    {% if member_list %}
-        <ul class="list-group">{% for member in member_list %}
-            <li class="list-group-item"><a href="{{ member.get_absolute_url }}">{{ member }}</a></li>{% endfor %}
+    {% if parent_list %}
+        <ul class="list-group">{% for person in parent_list %}
+            <li class="list-group-item"><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>{% endfor %}
         </ul>
     {% else %}
         <div class="alert alert-light" role="alert">No members have joined yet</div>

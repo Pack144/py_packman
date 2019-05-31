@@ -1,9 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
 from .forms import WebsiteLoginCreationForm
-from .models import Member
+from .models import Member, Parent, Scout, Contributor
 
 
 class JoinUs(generic.CreateView):
@@ -21,3 +21,18 @@ class MemberDetail(PermissionRequiredMixin, generic.DetailView):
 class MemberList(PermissionRequiredMixin, generic.ListView):
     permission_required = ['assignments.view_member']
     model = Member
+
+
+class ParentList(PermissionRequiredMixin, generic.ListView):
+    permission_required = ['assignments.view_member']
+    model = Parent
+
+
+class ScoutList(PermissionRequiredMixin, generic.ListView):
+    permission_required = ['assignments.view_member']
+    model = Scout
+
+
+class ContributorList(PermissionRequiredMixin, generic.ListView):
+    permission_required = ['assignments.view_member']
+    model = Contributor
