@@ -3,7 +3,6 @@ from django.contrib.auth.admin import UserAdmin
 
 from .forms import WebsiteLoginCreationForm, WebsiteLoginChangeForm
 from .models import Member, WebsiteLogin, Parent, Scout, Contributor
-from assignments.models import Committee, Den
 
 
 class WebsiteLoginAdmin(UserAdmin):
@@ -20,6 +19,7 @@ class WebsiteLoginInline(admin.StackedInline):
 class MemberAdmin(admin.ModelAdmin):
     list_display = ['name', 'last_name', 'age']
     list_display_links = ['name', 'last_name']
+    list_filter = ['active', 'role']
     exclude = []
     inlines = [WebsiteLoginInline]
     prepopulated_fields = {'permalink': ('first_name', 'middle_name', 'last_name')}
@@ -31,14 +31,17 @@ class MemberAdmin(admin.ModelAdmin):
 
 
 class ContributorAdmin(MemberAdmin):
+    list_filter = ['active']
     list_display = ['name', 'last_name']
 
 
 class ParentAdmin(MemberAdmin):
+    list_filter = ['active']
     list_display = ['name', 'last_name']
 
 
 class ScoutAdmin(MemberAdmin):
+    list_filter = ['active', 'accepted_into_the_pack']
     exclude = ['children']
     inlines = []
 
