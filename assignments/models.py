@@ -10,7 +10,7 @@ class Committee(models.Model):
     page = models.ManyToManyField(DynamicPage, blank=True, related_name='committee')
     date_added = models.DateField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
-    permalink = models.SlugField()
+    permalink = models.SlugField(unique=True)
 
     class Meta:
         ordering = ['name']
