@@ -11,6 +11,7 @@ class PageInline(admin.StackedInline):
 
 
 class CommitteeAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'permalink': ('name', )}
     exclude = ['page']
     inlines = [PageInline]
 

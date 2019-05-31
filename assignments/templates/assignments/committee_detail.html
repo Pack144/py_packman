@@ -12,9 +12,9 @@
     </nav>
     <h1>{{ committee.name }}</h1>
     <div>{{ committee.description }}</div>
-    {% if committee.chair.count > 0 or committee.assistant.count > 0 %}
+    {% if committee.chair.count or committee.assistant.count %}
     <h2>Leadership</h2>
-        {% if committee.chair.count > 0 %}
+        {% if committee.chair.count %}
             <h3>Chair</h3>
             <ul>
             {% for chair in committee.chair.all %}
@@ -22,7 +22,7 @@
             {% endfor %}
             </ul>
             {% endif %}
-        {% if committee.assistant.count > 0 %}
+        {% if committee.assistant.count %}
             <h3>Assistant</h3>
             <ul>
             {% for assistant in committee.assistant.all %}

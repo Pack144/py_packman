@@ -15,14 +15,14 @@
         <img src="/static/img/den_{{ den.number }}_patch.jpg" class="img-fluid float-left h-75 m-2 align-middle" alt="Den {{ den.number }} patch">
         {% if den.rank %}<img src="/static/img/{{ den.get_rank_display|slugify }}.jpg" class="img-fluid h-75 m-2 align-middle" alt="{{ den.get_rank_display }} patch">{% endif %}
     </div>
-    <h2>Leader{% if not den.leadership.count == 1 %}s{% endif %}</h2>
+    <h2>Leader{{ den.leadership.count|pluralize }}</h2>
     {% if den.leadership.count %}<ul class="list-group">
         {% for leader in den.leadership.all %}<li class="list-group-item"><a href="{{ leader.get_absolute_url }}">{{ leader }}</a></li>{% endfor %}
     </ul>
     {% else %}
     <div class="alert alert-warning" role="alert">There are no leaders assigned to this den</div>
     {% endif %}
-    <h2>Members</h2>
+    <h2>Member{{ den.membership.count|pluralize }}</h2>
     {% if den.membership.count %}
     <ul class="list-group">
     {% for member in den.membership.all %}
