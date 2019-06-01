@@ -25,6 +25,7 @@
             <button type="submit" class="btn btn-success btn-lg btn-block">Login</button>
             <input type="hidden" name="next" value="{{ next }}" />
         </form>
-        <p>Forgot your password? <a href="{% url 'password_reset' %}">You can reset it.</a></p>
+        <p class="text-muted text-centered small">Forgot your password? <a href="{% url 'password_reset' %}">Reset it</a><br>
+        Not yet a member? <a href="{% url 'join-us' %}">Join us</a></p>
     </div>
 {% endblock main %}
