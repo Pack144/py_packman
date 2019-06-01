@@ -28,34 +28,20 @@ class Page(models.Model):
         abstract = True
 
 
-class HomePage(Page):
-    title = 'Home Page'
-    permalink = 'home'
+class StaticPage(Page):
+    title = None
+    PAGE_CHOICES = (
+        ('H', 'Home Page'),
+        ('A', 'About Us'),
+        ('L', 'Our History')
+    )
+    page = models.CharField(max_length=1, choices=PAGE_CHOICES, primary_key=True)
+
+    class Meta:
+        ordering = ['page']
 
     def __str__(self):
-        return 'Home page'
-
-    def save(self, *args, **kwargs):
-        if HomePage.objects.exists() and not self.pk:
-            # if you'll not check for self.pk
-            # then error will also raised in update of exists model
-            raise ValidationError('There is can be only one Homepage instance')
-        return super(HomePage, self).save(*args, **kwargs)
-
-
-class AboutPage(Page):
-    title = 'About Us'
-    permalink = 'about-us'
-
-    def __str__(self):
-        return 'About Us page'
-
-    def save(self, *args, **kwargs):
-        if AboutPage.objects.exists() and not self.pk:
-            # if you'll not check for self.pk
-            # then error will also raised in update of exists model
-            raise ValidationError('There is can be only one About Us instance')
-        return super(AboutPage, self).save(*args, **kwargs)
+        return self.get_page_display()
 
 
 class DynamicPage(Page):
