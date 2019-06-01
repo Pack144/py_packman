@@ -26,7 +26,7 @@
         {% if user.is_authenticated %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ user }}
+                    {% if user.member %}{{ user.member.name }}{% else %}{{ user }}{% endif %}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="userMenu">
                 {% if user.is_staff %}
