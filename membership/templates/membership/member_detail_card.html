@@ -17,19 +17,18 @@
             {{ member }}
             {% if member.date_of_birth %}<br><small class="text-muted">{{ member.age }} years old</small>{% endif %}
         </h5>
-    {% if member.address %}
-        <p class="card-text">{{ member.address.street }}<br>
-        {{ member.address.city }}, {{ member.address.state }} {{ member.address.zip_code }}</p>
-    {% endif %}
+    {% if member.login and member.login.published %}<p class="card-text">{{ member.login }}</p>{% endif %}
     {% if member.phone_number.count %}
         <p class="card-text">
       {% for number in member.phone_number.all %}
-          <strong>{{ number.get_type_display }}:</strong> {{ number }}<br>
+          {% if number.published %}<strong>{{ number.get_type_display }}:</strong> {{ number }}<br>{% endif %}
       {% endfor %}
         </p>
     {% endif %}
-    {% if member.den_assigned %}
-        <img src="/static/img/den_{{ member.den_assigned.number }}_patch.jpg" class="card-img" alt="Den {{ member.den_assigned.number }} patch">
+    {% if member.address and member.address.published %}
+        <p class="card-text">{{ member.address.street }}<br>
+        {{ member.address.city }}, {{ member.address.state }} {{ member.address.zip_code }}</p>
     {% endif %}
+    {% if member.den_assigned %}<img src="/static/img/den_{{ member.den_assigned.number }}_patch.jpg" class="card-img" alt="Den {{ member.den_assigned.number }} patch">{% endif %}
     </div>
 </div>

@@ -1,14 +1,6 @@
 {% extends "base.html" %}
-{% load static %}
 
-
-{% block title %}
-    {% if object %}
-        {{ object.title }}
-    {% else %}
-        About Us
-    {% endif %}
-{% endblock title %}
+{% block title %}About Us{% endblock title %}
 
 {% block main %}
     <nav aria-label="breadcrumb">
@@ -17,12 +9,11 @@
             <li class="breadcrumb-item active" aria-current="page">About Us</li>
         </ol>
     </nav>
-    {% if object %}
-        <h1>{{ object.title }}</h1>
-        {% if object.image %}<img src="{% url 'image' object.image.pk %}">{% endif %}
-        <p>{{ object.body }}</p>
+    <h1>About Us</h1>
+    {% if page_content.body %}
+        <p>{{ page_content.body|safe }}</p>
     {% else %}
-        <h1>About Us</h1>
+        <div class="alert alert-warning" role="alert">This page has no content yet. Here is some sample text instead.</div>
         {% lorem 3 p %}
     {% endif %}
 {% endblock %}

@@ -1,19 +1,44 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .forms import WebsiteLoginCreationForm, WebsiteLoginChangeForm
-from .models import Member, WebsiteLogin, Parent, Scout, Contributor
+from . import forms, models
 
 
-class WebsiteLoginAdmin(UserAdmin):
-    add_form = WebsiteLoginCreationForm
-    form = WebsiteLoginChangeForm
-    model = WebsiteLogin
-    list_display = ['email', 'username']
+class LoginAdmin(UserAdmin):
+    add_form = forms.LoginCreationForm
+    form = forms.LoginChangeForm
+    model = models.Login
+    list_display = ('email', 'is_staff', 'is_active')
+    list_filter = ('email', 'is_staff', 'is_active')
+    fieldsets = (
+        (None, {'fields': (('email', 'subscribed', 'published' ), 'password', 'member')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide', ),
+            'fields': (('email', 'subscribed', 'published' ), 'password1', 'password2', 'is_staff', 'is_active')
+        }),
+    )
+    search_fields = ('email', )
+    ordering = ('email', )
 
 
-class WebsiteLoginInline(admin.StackedInline):
-    model = WebsiteLogin
+class LoginInline(admin.StackedInline):
+    add_form = forms.LoginCreationForm
+    form = forms.LoginChangeForm
+    model = models.Login
+    classes = ['collapse']
+    fieldsets = (
+        (None, {'fields': (('email', 'subscribed', 'published' ), 'password')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide', ),
+            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active')
+        }),
+    )
 
 
 class MemberAdmin(admin.ModelAdmin):
@@ -21,12 +46,13 @@ class MemberAdmin(admin.ModelAdmin):
     list_display_links = ['name', 'last_name']
     list_filter = ['active', 'role']
     exclude = []
-    inlines = [WebsiteLoginInline]
+    inlines = [LoginInline]
+    search_fields = ('first_name', 'nickname', 'middle_name', 'last_name', )
     prepopulated_fields = {'permalink': ('first_name', 'middle_name', 'last_name')}
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == 'children':
-            kwargs['queryset'] = Member.objects.filter(role='S')
+            kwargs['queryset'] = models.Member.objects.filter(role='S')
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
 
@@ -46,8 +72,8 @@ class ScoutAdmin(MemberAdmin):
     inlines = []
 
 
-admin.site.register(WebsiteLogin, WebsiteLoginAdmin)
-admin.site.register(Member, MemberAdmin)
-admin.site.register(Contributor, ContributorAdmin)
-admin.site.register(Parent, ParentAdmin)
-admin.site.register(Scout, ScoutAdmin)
+admin.site.register(models.Login, LoginAdmin)
+admin.site.register(models.Member, MemberAdmin)
+admin.site.register(models.Contributor, ContributorAdmin)
+admin.site.register(models.Parent, ParentAdmin)
+admin.site.register(models.Scout, ScoutAdmin)

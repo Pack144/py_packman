@@ -1,12 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Hello World!{% endblock %}
+
+{% block title %}Home{% endblock title %}
 
 {% block main %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Home</li>
+            <li class="breadcrumb-item active"><a href="{% url 'home_page' %}">Home</a></li>
         </ol>
     </nav>
-    <h1>Hello, world!</h1>
-    {% lorem 4 p %}
+    <h1>Home</h1>
+    {% if page_content.body %}
+        <p>{{ page_content.body|safe }}</p>
+    {% else %}
+        <div class="alert alert-warning" role="alert">This page has no content yet. Here is some sample text instead.</div>
+        {% lorem 3 p %}
+    {% endif %}
 {% endblock %}

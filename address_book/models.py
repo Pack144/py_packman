@@ -9,6 +9,8 @@ class Address(models.Model):
     state = models.CharField(max_length=2)
     zip_code = models.CharField(max_length=10)
 
+    published = models.BooleanField(default=True, help_text='Display your address to other members of the pack.')
+
     date_added = models.DateField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -29,6 +31,7 @@ class PhoneNumber(models.Model):
         ('O', 'Other')
     )
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+    published = models.BooleanField(default=True, help_text='Display this phone number to other members of the pack.')
 
     date_added = models.DateField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
