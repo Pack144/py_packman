@@ -6,13 +6,13 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django-bootstrap4 = "==0.0.8"
-django-ckeditor = "==5.7.1"
-django-js-asset = "==1.2.2"
-pytz = "==2019.1"
-Django = "==2.2.1"
-Pillow = "==6.0.0"
-django-phonenumber-field = "==3.0.1"
+django-bootstrap4 = "*"
+django-ckeditor = "*"
+django-js-asset = "*"
+pytz = "*"
+Django = "*"
+Pillow = "*"
+django-phonenumber-field = "*"
 phonenumbers = "*"
 babel = "*"
 
