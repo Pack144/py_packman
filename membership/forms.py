@@ -1,16 +1,17 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import WebsiteLogin
+
+from . import models
 
 
-class WebsiteLoginCreationForm(UserCreationForm):
+class LoginCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
-        model = WebsiteLogin
-        fields = ('username', 'email')
+        model = models.Login
+        fields = ('email', 'subscribed', 'published', 'member')
 
 
-class WebsiteLoginChangeForm(UserChangeForm):
+class LoginChangeForm(UserChangeForm):
 
     class Meta:
-        model = WebsiteLogin
-        fields = ('username', 'email')
+        model = models.Login
+        fields = ('email', 'subscribed', 'published', 'member')

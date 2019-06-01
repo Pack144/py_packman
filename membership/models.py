@@ -2,9 +2,12 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 from assignments.models import Committee, Den
 from address_book.models import Address, PhoneNumber, Venue
+
+from . import managers
 
 
 class Member(models.Model):
@@ -77,45 +80,43 @@ class Member(models.Model):
         return reverse('member-detail', args=[str(self.permalink)])
 
 
-class WebsiteLogin(AbstractUser):
+class Login(AbstractUser):
     """If the member is allowed to log into the website, this class will store their credentials."""
-    member = models.OneToOneField(Member, on_delete=models.SET_NULL, blank=True, null=True)
+    username = None
+    email = models.EmailField(_('email address'), unique=True)
+    subscribed = models.BooleanField(default=True, help_text='Allow email communication from the website.')
+    published = models.BooleanField(default=True, help_text='Display your email address to other members of the pack.')
+    member = models.OneToOneField(Member, on_delete=models.CASCADE, blank=True, null=True, related_name='login')
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = managers.LoginManager()
 
     def __str__(self):
         return self.email
 
-
-class ContributorManager(models.Manager):
-    def get_queryset(self):
-        return super(ContributorManager, self).get_queryset().filter(role='C')
+    class Meta:
+        verbose_name = 'web login'
+        verbose_name_plural = 'web login'
 
 
 class Contributor(Member):
-    objects = ContributorManager()
+    objects = managers.ContributorManager()
 
     class Meta:
         proxy = True
-
-
-class ParentManager(models.Manager):
-    def get_queryset(self):
-        return super(ParentManager, self).get_queryset().filter(role='P')
 
 
 class Parent(Member):
-    objects = ParentManager()
+    objects = managers.ParentManager()
 
     class Meta:
         proxy = True
 
 
-class ScoutManager(models.Manager):
-    def get_queryset(self):
-        return super(ScoutManager, self).get_queryset().filter(role='S')
-
-
 class Scout(Member):
-    objects = ScoutManager()
+    objects = managers.ScoutManager()
 
     class Meta:
         proxy = True
