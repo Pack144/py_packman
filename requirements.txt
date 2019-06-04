@@ -4,7 +4,7 @@ django-bootstrap4==0.0.8
 django-ckeditor==5.7.1
 django-js-asset==1.2.2
 django-phonenumber-field==3.0.1
-django==2.2.1
+django==2.2.2
 phonenumbers==8.10.13
 pillow==6.0.0
 pytz==2019.1
