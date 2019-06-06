@@ -11,14 +11,12 @@
     </nav>
     <h1>Committees</h1>
     {% if committee_list %}
-    <ul class="list-group">
+    <dl class="row">
     {% for committee in committee_list %}
-        <li class="list-group-item">
-            <a href="{{ committee.get_absolute_url }}">{{ committee }}</a>
-            {% if committee.description %} - {{ committee.description }}{% endif %}
-        </li>
+        <dt class="col-sm-3"><a href="{{ committee.get_absolute_url }}">{{ committee }}</a></dt>
+        <dd class="col-sm-9 text-truncate">{% if committee.description %}{{ committee.description }}{% endif %}</dd>
     {% endfor %}
-    </ul>
+    </dl>
     {% else %}
     <div class="alert alert-light" role="alert">No committees have been defined yet</div>
     {% endif %}
