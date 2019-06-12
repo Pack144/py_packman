@@ -15,3 +15,10 @@ class LoginChangeForm(UserChangeForm):
     class Meta:
         model = models.Login
         fields = ('email', 'subscribed', 'published', 'member')
+
+
+class JoinUsForm(UserCreationForm):
+
+    class Meta:
+        model = models.Login
+        fields = ('email', )

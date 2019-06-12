@@ -6,7 +6,7 @@ from . import forms, models
 
 
 class JoinUs(generic.CreateView):
-    form_class = forms.LoginCreationForm
+    form_class = forms.JoinUsForm
     success_url = reverse_lazy('login')
     template_name = 'membership/join-us.html'
 
