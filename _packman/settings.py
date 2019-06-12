@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'ckeditor',
     'ckeditor_uploader',
+    'django_registration',
     'phonenumber_field',
 
     # Local apps
@@ -137,6 +138,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+ACCOUNT_ACTIVATION_DAYS = 7
 CKEDITOR_UPLOAD_PATH = MEDIA_ROOT
 PHONENUMBER_DEFAULT_REGION = 'US'
 

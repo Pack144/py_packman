@@ -96,6 +96,12 @@ class Login(AbstractUser):
     def __str__(self):
         return self.email
 
+    def get_short_name(self):
+        if self.member:
+            return self.member.name
+        else:
+            return self.email
+
     class Meta:
         verbose_name = 'web login'
         verbose_name_plural = 'web login'

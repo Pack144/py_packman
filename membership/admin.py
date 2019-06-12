@@ -8,7 +8,8 @@ class LoginAdmin(UserAdmin):
     add_form = forms.LoginCreationForm
     form = forms.LoginChangeForm
     model = models.Login
-    list_display = ('email', 'is_staff', 'is_active')
+    list_display = ('member', 'email', 'is_staff', 'is_active')
+    list_display_links = ['member', 'email']
     list_filter = ('email', 'is_staff', 'is_active')
     fieldsets = (
         (None, {'fields': (('email', 'subscribed', 'published' ), 'password', 'member')}),
