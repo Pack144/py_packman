@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error{% endblock title %}
+
+{% block main %}
+    <h1>Server Error</h1>
+    <p>Hmm…something went wrong on our end. Try starting over at <a href="{% url 'home_page' %}">the homepage</a>.</p>
+{% endblock %}
