@@ -4,66 +4,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {% bootstrap_css %}
-    <link rel="stylesheet" href="{% static 'css/packman.css' %}">
-    {% block optional_head %}{% endblock %}
-    <title>Pack 144: {% block title %}Hello World!{% endblock %}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/packman.css' %}">
+  {% block optional_head %}{% endblock %}
+  <title>Pack 144: {% block title %}Hello World!{% endblock %}</title>
 </head>
 
-<!-- Here lies the header section -->
+<body>
 <header>{% include 'header.html' %}</header>
 
-<!-- Here lies the main section -->
 <main role="main">
-    <div class="container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-8">
         {% block main %}<h1>Hello World!</h1>{% endblock %}
-    {% if is_paginated %}
-        <nav aria-label="Page navigation">
+        {% if is_paginated %}
+          <nav aria-label="Page navigation" class="mt-2">
             <ul class="pagination">
-            {% if page_obj.has_previous %}
+              {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"
+                     aria-disabled="true">Previous</a>
                 </li>
-            {% else %}
+              {% else %}
                 <li class="page-item disabled">
-                    <a class="page-link" href="#">Previous</a>
+                  <a class="page-link" href="#">Previous</a>
                 </li>
-            {% endif %}
-            {% for page in paginator.page_range %}
+              {% endif %}
+              {% for page in paginator.page_range %}
                 {% if page_obj.number == page %}
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">{{ page }}  <span class="sr-only">(current)</span></a>
-                    </li>{% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
-                    </li>
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">{{ page }} <span class="sr-only">(current)</span></a>
+                  </li>{% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                  </li>
                 {% endif %}
-            {% endfor %}
-        {% if page_obj.has_next %}
+              {% endfor %}
+              {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
                 </li>
-            </ul>
-            {% else %}
+                </ul>
+              {% else %}
                 <li class="page-item disabled">
-                    <a class="page-link" href="#">Next</a>
+                  <a class="page-link" href="#">Next</a>
                 </li>
-            {% endif %}
-        </nav>
-    {% endif %}
+              {% endif %}
+          </nav>
+        {% endif %}
+      </div>
     </div>
+  </div>
 </main>
 
-<!-- Here lies the footer section -->
-<footer>
-    <div class="container">
-        {% include 'footer.html' %}
-    </div>
-</footer>
+<footer>{% include 'footer.html' %}</footer>
 
 {% bootstrap_javascript jquery='full' %}
-{% block optional_js %}{% endblock %}
 </body>
 </html>
