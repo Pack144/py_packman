@@ -1,13 +1,15 @@
 from django.db import models
 
+from localflavor.us.models import USStateField, USZipCodeField
 from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Address(models.Model):
     street = models.CharField(max_length=128)
+    street2 = models.CharField(max_length=128, null=True, blank=True)
     city = models.CharField(max_length=64)
-    state = models.CharField(max_length=2)
-    zip_code = models.CharField(max_length=10)
+    state = USStateField()
+    zip_code = USZipCodeField()
 
     published = models.BooleanField(default=True, help_text='Display your address to other members of the pack.')
 
@@ -18,7 +20,10 @@ class Address(models.Model):
         verbose_name_plural = 'addresses'
 
     def __str__(self):
-        return '{}, {}, {}, {}'.format(self.street, self.city, self.state, self.zip_code)
+        if not self.street2:
+            return '{}, {} {}, {}'.format(self.street, self.city, self.state, self.zip_code)
+        else:
+            return '{} {}, {} {}, {}'.format(self.street, self.street2, self.city, self.state, self.zip_code)
 
 
 class PhoneNumber(models.Model):

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django_registration',
+    'localflavor',
     'phonenumber_field',
 
     # Local apps
