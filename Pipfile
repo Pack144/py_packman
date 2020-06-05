@@ -19,7 +19,7 @@ django-localflavor = "==2.2"
 python-stdnum = "==1.11"
 sqlparse = "==0.3.0"
 Babel = "==2.7.0"
-Django = "==2.2.8"
+Django = "==2.2.13"
 confusable_homoglyphs = "==3.2.0"
 
 [requires]
